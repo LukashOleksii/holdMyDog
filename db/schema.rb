@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_190046) do
+ActiveRecord::Schema.define(version: 2021_08_10_081622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,39 +18,107 @@ ActiveRecord::Schema.define(version: 2021_08_09_190046) do
   create_table "addresses", force: :cascade do |t|
     t.string "country"
     t.string "city"
-    t.string "region"
-    t.string "street"
+    t.string "address_line1"
+    t.string "address_line2"
+    t.string "zipcode"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
-  create_table "owners", force: :cascade do |t|
-    t.bigint "user_id", null: false
+  create_table "applications", force: :cascade do |t|
+    t.string "status"
+    t.integer "cost"
+    t.text "description"
+    t.bigint "timeslot_id", null: false
+    t.bigint "owner_id", null: false
+    t.bigint "sitter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_owners_on_user_id"
+    t.index ["owner_id"], name: "index_applications_on_owner_id"
+    t.index ["sitter_id"], name: "index_applications_on_sitter_id"
+    t.index ["timeslot_id"], name: "index_applications_on_timeslot_id"
   end
 
-  create_table "sitters", force: :cascade do |t|
-    t.bigint "user_id", null: false
+  create_table "applications_and_pets", id: false, force: :cascade do |t|
+    t.bigint "application_id"
+    t.bigint "pet_id"
+    t.index ["application_id"], name: "index_applications_and_pets_on_application_id"
+    t.index ["pet_id"], name: "index_applications_and_pets_on_pet_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "raiting"
+    t.text "body"
+    t.bigint "author_id", null: false
+    t.bigint "receiver_id", null: false
+    t.bigint "order_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_sitters_on_user_id"
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["order_id"], name: "index_comments_on_order_id"
+    t.index ["receiver_id"], name: "index_comments_on_receiver_id"
   end
 
-  create_table "user_profiles", force: :cascade do |t|
+  create_table "orders", force: :cascade do |t|
+    t.string "status"
+    t.integer "cost"
+    t.text "description"
+    t.bigint "timeslot_id", null: false
+    t.bigint "application_id", null: false
+    t.bigint "owner_id", null: false
+    t.bigint "sitter_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["application_id"], name: "index_orders_on_application_id"
+    t.index ["owner_id"], name: "index_orders_on_owner_id"
+    t.index ["sitter_id"], name: "index_orders_on_sitter_id"
+    t.index ["timeslot_id"], name: "index_orders_on_timeslot_id"
+  end
+
+  create_table "orders_and_pets", id: false, force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "pet_id"
+    t.index ["order_id"], name: "index_orders_and_pets_on_order_id"
+    t.index ["pet_id"], name: "index_orders_and_pets_on_pet_id"
+  end
+
+  create_table "pets", force: :cascade do |t|
+    t.string "type"
     t.string "name"
-    t.string "surname"
-    t.string "address"
+    t.string "gender"
+    t.decimal "years"
+    t.integer "weight"
+    t.integer "height"
+    t.text "description"
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_pets_on_owner_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
     t.string "phone"
+    t.string "photo"
     t.string "email"
-    t.string "socials"
+    t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_user_profiles_on_user_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "timeslots", force: :cascade do |t|
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string "status"
+    t.bigint "sitter_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sitter_id"], name: "index_timeslots_on_sitter_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,16 +128,24 @@ ActiveRecord::Schema.define(version: 2021_08_09_190046) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "role"
-    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "addresses", "users"
-  add_foreign_key "owners", "users"
-  add_foreign_key "sitters", "users"
-  add_foreign_key "user_profiles", "users"
+  add_foreign_key "applications", "timeslots"
+  add_foreign_key "applications", "users", column: "owner_id"
+  add_foreign_key "applications", "users", column: "sitter_id"
+  add_foreign_key "comments", "orders"
+  add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "comments", "users", column: "receiver_id"
+  add_foreign_key "orders", "applications"
+  add_foreign_key "orders", "timeslots"
+  add_foreign_key "orders", "users", column: "owner_id"
+  add_foreign_key "orders", "users", column: "sitter_id"
+  add_foreign_key "pets", "users", column: "owner_id"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "timeslots", "users", column: "sitter_id"
 end

@@ -1,0 +1,77 @@
+image: 'ruby:3.0.2'
+
+.default: &default
+  variables:
+    BUNDLE_PATH: vendor/bundle
+    DISABLE_SPRING: 1
+    RAILS_ENV: test
+    POSTGRES_DB: holdmydog_test
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: ""
+    POSTGRES_HOST_AUTH_METHOD: trust
+  cache:
+    paths:
+      - node_modules/
+      - vendor/
+      - public/
+  services:
+    - postgres:13.3
+    - redis:6.2.5
+
+stages:
+  - lint
+  - test
+
+lint:
+  stage: lint
+  script:
+    - gem install rubocop -v '~> 1.18'
+    - rubocop
+
+units:
+  <<: *default
+  stage: test
+  script:
+    - apt-get update -qq && apt-get install -y -qq nodejs yarn
+    - ruby -v
+    - gem install bundler
+    - bundle config set path 'vendor'
+    - bundle check || bundle install -j $(nproc)
+    - cp config/database.gitlab.yml config/database.yml
+    - RAILS_ENV=test bundle exec rake db:create
+    - RAILS_ENV=test bundle exec rake db:schema:load
+    - RAILS_ENV=test bundle exec rspec --exclude-pattern "**/{models,features}/*_spec.rb"
+
+
+models:
+  <<: *default
+  stage: test
+  script:
+    - apt-get update -qq && apt-get install -y -qq nodejs yarn
+    - ruby -v
+    - gem install bundler
+    - bundle config set path 'vendor'
+    - bundle check || bundle install -j $(nproc)
+    - cp config/database.gitlab.yml config/database.yml
+    - RAILS_ENV=test bundle exec rake db:create
+    - RAILS_ENV=test bundle exec rake db:schema:load
+    - RAILS_ENV=test bundle exec rspec spec/models/*_spec.rb
+
+features:
+  <<: *default
+  stage: test
+  script:
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+    - apt-get update -qq && apt-get install -y -qq nodejs yarn
+    - ruby -v
+    - gem install bundler
+    - bundle config set path 'vendor'
+    - bundle check || bundle install -j $(nproc)
+    - yarn install
+    - cp config/database.gitlab.yml config/database.yml
+    - RAILS_ENV=test bundle exec rake db:create
+    - RAILS_ENV=test bundle exec rake db:schema:load
+    - RAILS_ENV=test bundle exec rails assets:precompile
+    - RAILS_ENV=test bundle exec rspec spec/features/*_spec.rb
+
