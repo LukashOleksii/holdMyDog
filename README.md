@@ -9,6 +9,31 @@ docker-compose run console bundle exec rails db:migrate
 docker-compose up
 ```
 
+### How to run the app in background
+```bash
+docker-compose up -d
+```
+
+### How to attach to the container
+#### 1. Check docker containers up
+```bash
+docker ps
+```
+#### 2. You will see something like this
+```bash
+CONTAINER ID   IMAGE                  COMMAND                  CREATED         STATUS                   PORTS                                       NAMES
+e8d217b80c7d   hold-my-dog:0.0.1      "/bin/bash"              7 minutes ago   Up 7 minutes                                                         holdmydog_console_1
+d427f4396a99   hold-my-dog:0.0.1      "bundle exec rails s…"   18 hours ago    Up 6 seconds             0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   holdmydog_rails_1
+0628cf9f6a3e   postgres:13.3-alpine   "docker-entrypoint.s…"   19 hours ago    Up 7 minutes (healthy)   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   holdmydog_postgres_1
+7b3afc27efbb   redis:6.2.5-alpine     "docker-entrypoint.s…"   19 hours ago    Up 7 minutes (healthy)   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp   holdmydog_redis_1
+```
+#### 3. Copy ID of needed container and run
+```bash
+docker attach d427f4396a99
+```
+> From this moment you will see logs from container
+
+
 ### How to run the test suite
 ```bash
 docker-compose run console bundle exec rspec
