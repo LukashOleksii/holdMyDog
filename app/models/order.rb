@@ -7,5 +7,5 @@ class Order < ApplicationRecord
   belongs_to :timeslot
   belongs_to :owner
   belongs_to :sitter
-  belongs_to :application
+  belongs_to :availability
 end

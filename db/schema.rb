@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_10_081622) do
+ActiveRecord::Schema.define(version: 2021_08_13_091810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,29 +27,21 @@ ActiveRecord::Schema.define(version: 2021_08_10_081622) do
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
-  create_table "applications", force: :cascade do |t|
+  create_table "availabilities", force: :cascade do |t|
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.string "status"
     t.integer "cost"
-    t.text "description"
-    t.bigint "timeslot_id", null: false
-    t.bigint "owner_id", null: false
+    t.integer "weight"
+    t.integer "height"
     t.bigint "sitter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["owner_id"], name: "index_applications_on_owner_id"
-    t.index ["sitter_id"], name: "index_applications_on_sitter_id"
-    t.index ["timeslot_id"], name: "index_applications_on_timeslot_id"
-  end
-
-  create_table "applications_and_pets", id: false, force: :cascade do |t|
-    t.bigint "application_id"
-    t.bigint "pet_id"
-    t.index ["application_id"], name: "index_applications_and_pets_on_application_id"
-    t.index ["pet_id"], name: "index_applications_and_pets_on_pet_id"
+    t.index ["sitter_id"], name: "index_availabilities_on_sitter_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "raiting"
+    t.integer "rating"
     t.text "body"
     t.bigint "author_id", null: false
     t.bigint "receiver_id", null: false
@@ -65,13 +57,13 @@ ActiveRecord::Schema.define(version: 2021_08_10_081622) do
     t.string "status"
     t.integer "cost"
     t.text "description"
+    t.bigint "availability_id", null: false
     t.bigint "timeslot_id", null: false
-    t.bigint "application_id", null: false
     t.bigint "owner_id", null: false
     t.bigint "sitter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["application_id"], name: "index_orders_on_application_id"
+    t.index ["availability_id"], name: "index_orders_on_availability_id"
     t.index ["owner_id"], name: "index_orders_on_owner_id"
     t.index ["sitter_id"], name: "index_orders_on_sitter_id"
     t.index ["timeslot_id"], name: "index_orders_on_timeslot_id"
@@ -114,11 +106,10 @@ ActiveRecord::Schema.define(version: 2021_08_10_081622) do
   create_table "timeslots", force: :cascade do |t|
     t.datetime "start_at"
     t.datetime "end_at"
-    t.string "status"
-    t.bigint "sitter_id", null: false
+    t.bigint "availability_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["sitter_id"], name: "index_timeslots_on_sitter_id"
+    t.index ["availability_id"], name: "index_timeslots_on_availability_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -135,17 +126,15 @@ ActiveRecord::Schema.define(version: 2021_08_10_081622) do
   end
 
   add_foreign_key "addresses", "users"
-  add_foreign_key "applications", "timeslots"
-  add_foreign_key "applications", "users", column: "owner_id"
-  add_foreign_key "applications", "users", column: "sitter_id"
+  add_foreign_key "availabilities", "users", column: "sitter_id"
   add_foreign_key "comments", "orders"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "comments", "users", column: "receiver_id"
-  add_foreign_key "orders", "applications"
+  add_foreign_key "orders", "availabilities"
   add_foreign_key "orders", "timeslots"
   add_foreign_key "orders", "users", column: "owner_id"
   add_foreign_key "orders", "users", column: "sitter_id"
   add_foreign_key "pets", "users", column: "owner_id"
   add_foreign_key "profiles", "users"
-  add_foreign_key "timeslots", "users", column: "sitter_id"
+  add_foreign_key "timeslots", "availabilities"
 end

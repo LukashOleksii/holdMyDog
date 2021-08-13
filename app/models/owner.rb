@@ -6,5 +6,4 @@ class Owner < User
   has_many :orders
   has_many :pets
   has_many :comments
-  has_many :raitings
 end
