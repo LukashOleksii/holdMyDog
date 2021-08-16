@@ -14,3 +14,33 @@
  *= require_self
  *= require bootstrap/dist/css/bootstrap
  */
+ @import 'bootstrap/scss/bootstrap';
+$primary_font_family: 'Inter';
+
+
+/* change the background color */
+
+.navbar-custom {
+  background: #20C997;
+
+  .navbar-logo-text{
+    font-family: primary_font_family;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    color: white;
+  }
+
+  .logo-box{
+    margin-left: 20%;
+  }
+}
+
+// .navbar-logo-text{
+//     font-family: Inter;
+//     font-style: normal;
+//     font-weight: 1800;
+//     font-size: 128px;
+//     line-height: 34px;
+//   }
