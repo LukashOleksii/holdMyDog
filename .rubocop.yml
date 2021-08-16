@@ -188,7 +188,7 @@ Naming/MethodParameterName:
 
 # Forbid numbers in variable names
 Naming/VariableNumber:
-  EnforcedStyle: non_integer
+  EnforcedStyle: normalcase
 
 # Same name of instance variable and memoization method
 Naming/MemoizedInstanceVariableName:
