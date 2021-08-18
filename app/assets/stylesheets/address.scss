@@ -1,0 +1,79 @@
+// Place all the styles related to the address controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.background-img {
+    background-image: image-url("dog.png");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-bg {
+    position: absolute;
+    width: 50%;
+    height: 100vh;
+    right: 0;
+    background: #20c997;
+}
+
+.sign-up-form {
+    position: relative;
+    width: 599px;
+    height: 888px;
+    left: 100px;
+    top: 128px;
+}
+
+.sign-up-inputs {
+    position: relative;
+    width: 450px;
+    height: 807px;
+    left: 0;
+    top: 33px;
+}
+.country-select {
+    width: 420px;
+    height: 71px;
+    left: 0;
+    top: 0;
+}
+.text {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+}
+.address-form {
+    position: relative;
+    top: 86;
+    width: 420px;
+    height: 238px;
+    left: 0;
+}
+.custom.btn {
+    font-weight: bold;
+    background-color: #ffffff;
+    color: #20c997;
+}
+.notice {
+    width: 448px;
+    height: 73px;
+    bottom: 0;
+}
+.text-1 {
+    font-family: Inter;
+    font-weight:normal;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 21px;
+    color: #ffffff;
+}
+.text-head {
+    font-family: Inter;
+    font-weight:bold;
+    color: #ffffff;
+}

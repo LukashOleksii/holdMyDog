@@ -11,6 +11,7 @@ gem 'webpacker',  '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'redis',      '~> 4.0'
 gem 'bootsnap',   '>= 1.4.4', require: false
+gem 'ffi', github: 'ffi/ffi', submodules: true
 
 gem 'devise'
 
