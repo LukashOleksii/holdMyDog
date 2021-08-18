@@ -22,6 +22,7 @@ $primary_font_family: 'Inter';
 
 .navbar-custom {
   background: #20C997;
+  box-shadow: 0 0 10px gray;
 
   .navbar-logo-text{
     font-family: primary_font_family;
@@ -37,10 +38,10 @@ $primary_font_family: 'Inter';
   }
 }
 
-// .navbar-logo-text{
-//     font-family: Inter;
-//     font-style: normal;
-//     font-weight: 1800;
-//     font-size: 128px;
-//     line-height: 34px;
-//   }
+.navbar-logo-text{
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 1800;
+    font-size: 128px;
+    line-height: 34px;
+  }
