@@ -14,7 +14,8 @@
  *= require_self
  *= require bootstrap/dist/css/bootstrap
  */
- @import 'bootstrap/scss/bootstrap';
+@import 'bootstrap/scss/bootstrap';
+@import url("stylesheets/landing_page.scss");
 $primary_font_family: 'Inter';
 
 

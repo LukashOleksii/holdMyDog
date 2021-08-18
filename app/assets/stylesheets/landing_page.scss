@@ -1,0 +1,39 @@
+// Place all the styles related to the LandingPage controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.main {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.background-img {
+    background-image: image-url("background-dog.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.custom.btn {
+    font-weight: bold;
+    background-color: #ffffff;
+    color: #20c997;
+    box-shadow: 0 0 10px gray;
+}
+
+.text {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+}
