@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   devise_for :users
+  get '/add_pet', to: 'pet#add'
   get '/add_location', to: 'address#add'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
