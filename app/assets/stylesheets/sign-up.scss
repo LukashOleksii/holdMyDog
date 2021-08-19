@@ -1,0 +1,62 @@
+$primary_font_family: 'Inter';
+$primary_background_color: #20C997;
+
+/*add background image*/
+.background-img{
+  background-image: image-url('background-dog.png');
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-block{
+  background-color: $primary_background_color;
+  padding: 5em 0 0 5em;
+  color: white;
+
+  .form-header{
+    font-family: $primary_font_family;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48.41px;
+    color: white;
+  }
+
+  .form-field{
+    height: 40px;
+    width: 420px;
+    left: 1067px;
+    top: 203px;
+    border-radius: 4px;
+    padding: 0 0 0 16px;
+    box-shadow: 0px 3px 9px 0px rgba(0,0,0,.5);
+    border: none !important;
+
+  }
+
+  .form-field-textarea{
+    width: 420px;
+    left: 1067px;
+    top: 203px;
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  .sign-up-btn{
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: $primary_background_color !important;
+    height: 39px;
+    width: 91px;
+    left: 0px;
+    top: 0px;
+    border-radius: 4px;
+    padding: 10px, 16px, 10px, 16px;
+  }
+}
