@@ -18,4 +18,6 @@ class User < ApplicationRecord
             presence:   true,
             uniqueness: { case_sensetive: false },
             format:     { with: VALID_EMAIL_REGEX, multiline: true }
+
+  accepts_nested_attributes_for :profile
 end

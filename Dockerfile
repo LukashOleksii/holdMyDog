@@ -11,7 +11,7 @@ ENV NODE_MAJOR=14
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-  build-essential curl git libpq-dev \
+  build-essential curl git libpq-dev less \
   && curl -sSL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash - \
   && curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
