@@ -7,70 +7,64 @@
     </a>
   <!-- </div> -->
 </nav>
+
 <div class="background-img ">
   <div class="row h-100">
-    <div class="col-6">
-
-    </div>
+    <div class="col-6"></div>
     <div class="col-6 align-items-start form-block d-flex">
       <div class="form-block">
-
-          <h2 class="form-header">Sign up now!</h2>
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <h2 class="form-header">Sign up now!</h2>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
 
+          <%= f.fields_for :profile do |pf| %>
+            <div class="field">
+              <%= pf.text_field :first_name, placeholder: 'First name *', class: 'form-field mb-3' %>
+            </div>
+
+            <div class="field">
+              <%= pf.text_field :last_name, placeholder: 'Last name *', class: 'form-field mb-3' %>
+            </div>
+
+            <div class="field">
+              <%= pf.text_field :phone, placeholder: 'Phone', class: 'form-field mb-3' %>
+            </div>
+          <% end %>
+
           <div class="field">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'First name*', class:"form-field mb-3" %>
+            <%= f.email_field :email, autocomplete: "email", placeholder: 'Email *', class: 'form-field mb-3' %>
           </div>
 
           <div class="field">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Last name*', class:"form-field mb-3" %>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: 'Password *', class: 'form-field mb-3' %>
           </div>
-
           <div class="field">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Phone', class:"form-field mb-3" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Repeat password *' , class: 'form-field mb-3' %>
           </div>
 
-          <div class="field">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email*', class:"form-field mb-3" %>
-          </div>
-
-          <div class="field">
-
-          <%= f.password_field :password, autocomplete: "new-password", placeholder: 'Password*', class:"form-field mb-3" %>
-          </div>
-
-          <div class="field">
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Repeat password*' , class:"form-field mb-3" %>
-          </div>
-
-          <div class="field">
-          <%= f.text_area :email, cols: 40, rows: 3, placeholder: 'Tell us about yourself ;)', class:"form-field-textarea mb-3" %>
-          </div>
+          <%= f.fields_for :profile do |profile_form| %>
+            <div class="field">
+              <%= profile_form.text_area :description, cols: 40, rows: 3, placeholder: 'Tell us about yourself ;)', class:"form-field-textarea mb-3" %>
+            </div>
+          <% end %>
 
           <div class="mb-3">* How would you like to use the service?</div>
+          <div class="field">
+            <div class="form-check">
+              <%= f.radio_button :role, 'sitter', css: 'form-check-input' %>
+              <%= label :role_sitter, 'I want to hold someone`s pet', css: 'form-check-label' %>
+            </div>
 
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              I want to give my pet to sitter
-            </label>
-          </div>
-
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-            <label class="form-check-label" for="flexRadioDefault2">
-              I want to hold someone`s pet
-            </label>
+            <div class="form-check">
+              <%= f.radio_button :role, 'owner', css: 'form-check-input' %>
+              <%= label :role_owner, 'I want to give my pet to sitter', css: 'form-check-label' %>
+            </div>
           </div>
 
           <div class="actions">
-          <%= f.submit "Sign up", class: "btn btn-light sign-up-btn mt-4" %>
+            <%= f.submit "Sign up", class: "btn btn-light sign-up-btn mt-4" %>
           </div>
-
-          <% end %>
-
-      </div>
+        <% end %>
       </div>
     </div>
   </div>
