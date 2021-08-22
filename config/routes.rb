@@ -3,11 +3,12 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
-  get '/add_pet', to: 'pet#add', as: 'pet'
-  get '/add_location', to: 'address#add', as: 'location'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  post '/add_pet', to: 'pet#create', as: 'pets'
+  get '/add_pet', to: 'pet#new'
+
+  post '/add_location', to: 'address#create', as: 'locations'
+  get '/add_location', to: 'address#new'
 
   get '/sitters/:id', to: 'sitter_profiles#show'
-
   get '/owner_profile', to: 'owner_profiles#show'
 end
