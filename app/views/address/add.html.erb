@@ -1,29 +1,24 @@
-<nav class="navbar-custom navbar navbar-expand-sm ">
-  <!-- <div class="container-fluid"> -->
-  <a href="#" class="logo-box float-start">
-    <a class="navbar-brand mb-1 h1 navbar-logo-text float-left" href="#">
-      <%= image_tag 'logo.png', class:"d-inline-block align-center mx-2 float-left" %>
-      HoldMyDog</a>
-  </a>
-  <!-- </div> -->
-</nav>
-<div class="background-img">
-  <div class="form-bg">
-    <div class="sign-up-form">
-      <div class="text-head">
-        <h1> Where you can hold a pet? </h1>
-      </div>
-      <div class="sign-up-inputs">
-        <div class="country-select">
+
+
+
+<div class="background-img ">
+  <div class="row h-100">
+    <div class="col-6"></div>
+    <div class="col-6 align-items-start form-block d-flex">
+      <div class="form-block ms-5">
+        <div class="row-11">
+        <h1 class="text-head fw-bold"> Where you can hold a pet? </h1>
+        
+        <div class="lines-input">
           <p class="text"> What is your country?</p>
-          <select class="form-select">
+          <select class=" form-select">
             <option selected>Choose your country</option>
             <option value="1">Ukraine</option>
           </select>
         </div>
-        <div class="address-form mt-4">
+        <div class="lines-input mt-4">
           <p class="text"> What is your address?</p>
-          <select class="form-select">
+          <select class=" form-select">
             <option selected>Choose your city</option>
             <option value="1">Kyiv</option>
             <option value="2">Kharkiv</option>
@@ -36,16 +31,19 @@
             <option value="9">Poltava</option>
             <option value="10">Chernihiv</option>
           </select>
-          <input class="form-control mt-2" type="text" placeholder="Zip-code">
-          <input class="form-control mt-2" type="text" placeholder="Address line #1">
-          <input class="form-control mt-2" type="text" placeholder="Address line #2">
+          <input class="form-control mt-3"  type="text" placeholder="Zip-code">
+          <input class="form-control mt-3" type="text" placeholder="Address line #1">
+          <input class="form-control mt-3" type="text" placeholder="Address line #2">
         </div>
-        <button type="button" class="btn btn-outline-success custom">Sign up</button>
+        <button type="button" class="btn btn-outline-success location mt-4">Sign up</button> 
+        </div>
+        <div class="notice" >
+          <p class="text-1 fw-bold"> Required fields marked with *</p>
+          <p class="">P.S. Don’t be scary to place your real name we protect your <br>
+            privacy and aligned with GDPR conventions</p>
+        </div>
+
       </div>
-      <div class="notice">
-        <p class="text-1 fw-bold"> Required fields marked with *</p>
-        <p class="text-1">P.S. Don’t be scary to place your real name we protect your
-          privacy and aligned with GDPR conventions</p>
       </div>
     </div>
   </div>

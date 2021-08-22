@@ -5,4 +5,8 @@ Rails.application.routes.draw do
 
   get '/add_pet', to: 'pet#add', as: 'pet'
   get '/add_location', to: 'address#add', as: 'location'
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get '/sitter_profile', to: 'sitter_profiles#show'
+  get '/owner_profile', to: 'owner_profiles#show'
 end

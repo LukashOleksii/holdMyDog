@@ -1,0 +1,116 @@
+// Place all the styles related to the SitterProfiles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.hidden {
+    visibility: hidden;
+}
+
+.form-availability{
+  width: 75%;
+}
+
+.check-pets {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    
+}
+
+.checkbox-pet {
+    height: 15px;
+    width: 15px;
+    background-color: #20C997; // set white color if sitter don`t have this pet
+    border: 1px gray solid;
+}
+
+.user-info {
+    height: 250px;
+    width: 85%;
+  }
+  
+  .primary-color { 
+    color: #20C997;
+  }
+  
+  .title {
+    font-weight: bold;
+    font-size: 25px;
+  }
+  
+  .custom.btn { 
+    color: white  ;
+    background-color: #20C997;
+    font-size: 20px;
+    height: 38px;
+    margin-left: 10px;
+    border-radius: 5px;
+  }
+  .gold.glyphicon {
+      color: gold;
+  }
+  
+  .user-avatar {
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+  }
+  .comment.user-avatar {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+  }
+  
+  .description {
+    font-size: 12px;
+    width: auto;
+  }
+  .availability {
+      width: 220px;
+      height: auto;
+      max-height: 200px;
+  }
+  
+  .location-map {
+    margin-left: 10px;
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;
+    width: 240px;
+    height: 250px;
+  }
+  .pet-sizes {
+    width: 250px;
+  }
+
+  .reviews{
+      width: 85%;
+  }
+
+  .reviews-scroll {
+    max-height: 800px;
+    overflow: auto;
+  }
+  
+  .reviews-container {
+    border-radius: 15px;
+    background-color: rgba(0,0,0,.03);
+  }
+  
+  .show-more {
+    position: relative;
+    text-align: end;
+  }
+
+  .add-more {
+    text-decoration: none;
+    border: none;
+    font-weight: bold;
+    background-color: transparent;
+  }
+  

@@ -1,0 +1,32 @@
+// Place all the styles related to the OwnerProfiles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.edit-pet {
+    margin-top: -10px;
+    margin-right: -50px;
+}
+
+.pet-scroll {
+    max-height: 500px;
+    overflow: auto;
+    
+}
+
+.trash.btn { 
+    color: white  ;
+    background-color: gray;
+    font-size: 22px;
+    height: 38px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.add-more-pets {
+    position: relative;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    margin-left: -15%;
+}

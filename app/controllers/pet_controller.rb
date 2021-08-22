@@ -14,12 +14,14 @@ class PetController < ApplicationController
   end
 
   def skip
-    #redirect_to location_path
+    # TODO: @Ivan-Donchenko
+    # Uncomment this after devise functionality merge
+    # redirect_to location_path
   end
 
   private
 
   def pet_params
-    #params.require(:pet).permit(:type, :name, :gender, :years, :weight, :height, :description, :owner_id)
+    # params.require(:pet).permit(:type, :name, :gender, :years, :weight, :height, :description, :owner_id)
   end
 end

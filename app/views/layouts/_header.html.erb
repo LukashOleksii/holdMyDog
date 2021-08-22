@@ -1,0 +1,17 @@
+<header class="d-flex navbar-custom navbar ">
+  <nav class="d-flex  container mt-2 justify-content-between navbar-logo-text">
+    <div class="logo-box d-flex ">
+      <%= image_tag 'logo.png', class:" mx-2 pb-2" , style:"width:40px; height:40px;"%>
+      <a class="navbar-brand mb-0 h1 navbar-logo-text " href="#">HoldMyDog</a> <!-- set lint to home page ?? -->
+      <% if current_user || true %> <!-- current_user -->
+        <% if true %> <!-- current_user.id == sitter.id -->
+          <a class="d-flex ms-5 navbar-logo-text" href="#">Search</a> <!-- set lint to search page -->
+        <% end %>
+        <a class="d-flex ms-5 navbar-logo-text" href="#">Inbox</a><span class="badges fs-5 mt-2">10</span> <!-- set current_user.notification-->
+
+    </div>
+    <a class="d-flex navbar-logo-text" href="#">MyHome</a> <!-- set lint to ... page ?? -->
+    <% end %>
+
+  </nav>
+</header>
