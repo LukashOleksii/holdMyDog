@@ -95,7 +95,6 @@ ActiveRecord::Schema.define(version: 2021_08_13_091810) do
     t.string "last_name"
     t.string "phone"
     t.string "photo"
-    t.string "email"
     t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -118,7 +117,7 @@ ActiveRecord::Schema.define(version: 2021_08_13_091810) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "role"
+    t.string "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

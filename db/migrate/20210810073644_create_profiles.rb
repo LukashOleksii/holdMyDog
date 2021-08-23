@@ -5,7 +5,6 @@ class CreateProfiles < ActiveRecord::Migration[6.1]
       t.string     :last_name
       t.string     :phone
       t.string     :photo
-      t.string     :email
       t.text       :description
       t.references :user, null: false, foreign_key: true
 
