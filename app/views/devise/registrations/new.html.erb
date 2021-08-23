@@ -42,13 +42,13 @@
           <div class="mb-3">* How would you like to use the service?</div>
           <div class="field">
             <div class="form-check">
-              <%= f.radio_button :role, 'sitter', css: 'form-check-input' %>
-              <%= label :role_sitter, 'I want to hold someone`s pet', css: 'form-check-label' %>
+              <%= f.radio_button :type, Sitter.name, css: 'form-check-input' %>
+              <%= label :type_sitter, 'I want to hold someone`s pet', css: 'form-check-label' %>
             </div>
 
             <div class="form-check">
-              <%= f.radio_button :role, 'owner', css: 'form-check-input' %>
-              <%= label :role_owner, 'I want to give my pet to sitter', css: 'form-check-label' %>
+              <%= f.radio_button :type, Owner.name, css: 'form-check-input', :checked => true %>
+              <%= label :type_owner, 'I want to give my pet to sitter', css: 'form-check-label' %>
             </div>
           </div>
 

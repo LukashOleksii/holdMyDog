@@ -17,7 +17,7 @@ module Users
           :password,
           :password_confirmation,
           :remember_me,
-          :role,
+          :type,
           profile_attributes: %i[first_name last_name phone description]
         )
       end
@@ -31,7 +31,7 @@ module Users
           :password,
           :password_confirmation,
           :remember_me,
-          :role,
+          :type,
           profile_attributes: %i[first_name last_name phone description]
         ]
       )

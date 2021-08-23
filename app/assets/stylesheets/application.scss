@@ -15,7 +15,7 @@ $primary_background_color: #20C997;
 
 .navbar-custom {
   z-index:2;
-  background: #20C997;
+  background: $primary_background_color;
   height: 50px;
   width: 100%;
   box-shadow: 0 0 10px gray;
@@ -38,4 +38,21 @@ $primary_background_color: #20C997;
   .logo-box{
     margin-left: 40px;
   }
+}
+.nav-block {
+  margin-left: 100px;
+
+  .block-item {
+    margin-left: 100px;
+  }
+}
+
+.log-out {
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  margin-top: 4px;
+  margin-left: 10px;
+
 }

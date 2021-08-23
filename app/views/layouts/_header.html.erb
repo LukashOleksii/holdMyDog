@@ -1,16 +1,28 @@
 <header class="d-flex navbar-custom navbar ">
   <nav class="d-flex  container mt-2 justify-content-between navbar-logo-text">
-    <div class="logo-box d-flex ">
+    <div class="logo-box d-flex  ">
       <%= image_tag 'logo.png', class:" mx-2 pb-2" , style:"width:40px; height:40px;"%>
       <a class="navbar-brand mb-0 h1 navbar-logo-text " href="#">HoldMyDog</a> <!-- set lint to home page ?? -->
-      <% if current_user || true %> <!-- current_user -->
+      <% if current_user %> <!-- current_user -->
         <% if true %> <!-- current_user.id == sitter.id -->
-          <a class="d-flex ms-5 navbar-logo-text" href="#">Search</a> <!-- set lint to search page -->
+          <a class="d-flex ms-5 navbar-logo-text fs-3" href="#">Search</a> <!-- set lint to search page -->
         <% end %>
-        <a class="d-flex ms-5 navbar-logo-text" href="#">Inbox</a><span class="badges fs-5 mt-2">10</span> <!-- set current_user.notification-->
+        <a class="d-flex ms-5 navbar-logo-text fs-3" href="#">Inbox</a><span class="badges fs-5 mt-2">10</span> <!-- set current_user.notification-->
 
     </div>
-    <a class="d-flex navbar-logo-text" href="#">MyHome</a> <!-- set lint to ... page ?? -->
+    <div class="d-flex">
+    <a class="d-flex navbar-logo-text fs-3" href="#">MyHome</a> <!-- set lint to ... page ?? -->
+    <%= button_to "Log out", destroy_user_session_path, method: :delete, class: " add-more-pets log-out fs-3" %>
+
+    </div>
+    <% else %>
+      <div class="d-flex position-relative nav-block">
+          <a class="d-flex navbar-logo-text fs-3 block-item" href="#">About us</a> <!-- set lint to search page -->
+          <a class="d-flex navbar-logo-text fs-3 block-item" href="#">Contact us</a> <!-- set lint to search page -->
+          <a class="d-flex navbar-logo-text fs-3 block-item" href="#">First here?</a> <!-- set lint to search page -->
+          <%= button_to "Sign up now!", new_user_registration_url, method: :get, class: "btn btn-outline-success pet block-item" %>
+        </div>
+
     <% end %>
 
   </nav>

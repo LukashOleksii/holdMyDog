@@ -7,4 +7,9 @@ class Profile < ApplicationRecord
   validates :last_name,  presence: true
   validates :phone,      presence: true
   validates :description, length: { maximum: 300 }
+
+  def full_name 
+    full_name = "#{first_name} #{last_name}"
+  end
+
 end
