@@ -5,7 +5,7 @@ class Pet < ApplicationRecord
 
   belongs_to :owner
 
-  validates :type, presence: true
+  validates :kind, presence: true
   validates :name, presence: true
   validates :height, presence: true, numericality: { only_integer: true }
   validates :weight, presence: true, numericality: { only_integer: true }

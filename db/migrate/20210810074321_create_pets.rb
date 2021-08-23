@@ -1,7 +1,7 @@
 class CreatePets < ActiveRecord::Migration[6.1]
   def change
     create_table :pets do |t|
-      t.string     :type
+      t.string     :kind
       t.string     :name
       t.string     :gender
       t.decimal    :years
