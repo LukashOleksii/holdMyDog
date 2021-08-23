@@ -3,7 +3,7 @@
     <div class="col-6"> </div>
     <div class="col-6 align-items-start form-block d-flex">
       <div class="form-block ms-5">
-      <%= form_with(model: @pet, url: pets_path) do |f| %>
+      <%= form_with(model: @pet, url: pet_path) do |f| %>
         <%= f.hidden_field :owner_id, value: current_user.id %>
         <%= f.hidden_field :kind, value: 'dog' %>
           <h2 class="form-header mb-5">Tell us about your pet!</h2>
