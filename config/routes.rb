@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {:registrations => "users/registrations"}
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
-  post '/add_pet', to: 'pet#create', as: 'pets'
-  get '/add_pet', to: 'pet#new'
+  get  '/add_pet', to: 'pets#new',    as: :new_pet
+  post '/add_pet', to: 'pets#create', as: :pet
 
-  post '/add_location', to: 'address#create', as: 'locations'
-  get '/add_location', to: 'address#new'
+  get  '/add_location', to: 'addresses#new',    as: :new_location
+  post '/add_location', to: 'addresses#create', as: :location
 
-  get '/sitters/:id', to: 'sitter_profiles#show'
-  get '/owner_profile', to: 'owner_profiles#show'
+  get '/sitters/:id', to: 'sitter_profiles#show', as: :sitter
+  get '/owners/:id',  to: 'owner_profiles#show',  as: :owner
 end

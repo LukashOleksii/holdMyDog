@@ -9,7 +9,7 @@
         <% else %>
           <h1 class="text-head fw-bold"> Where do you live? </h1>
         <% end %>
-         <%= form_with(model: @address, url: locations_path) do |f| %>
+         <%= form_with(model: @address, url: location_path) do |f| %>
           <%= f.hidden_field :user_id, value: current_user.id %>
         <div class="lines-input">
           <p class="text"> What is your country?</p>
@@ -28,7 +28,7 @@
         </div>
         <% end %>
         <div class="notice" >
-          <p class="text-1 fw-bold"> Required fields marked with *</p>
+          <p class="text-1 fw-bold">Required fields marked with *</p>
           <p class="">P.S. Don’t be scary to place your real name we protect your <br>
             privacy and aligned with GDPR conventions</p>
         </div>
