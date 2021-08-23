@@ -17,8 +17,13 @@ class AddressesController < ApplicationController
     @address = Address.new(address_params)
 
     if @address.save
-      redirect_to(owner_path(current_user),
-                  flash: { notice: 'Address successfully added!' })
+      if current_user.type == Owner.name
+        redirect_to(owner_path(current_user),
+                    flash: { notice: 'Address successfully added!' })
+      else
+        redirect_to(sitter_path(current_user),
+                    flash: { notice: 'Address successfully added!' })
+      end
     else
       redirect_to(new_location_path(@address),
                   flash: { error: @address.errors.full_messages.to_sentence })
