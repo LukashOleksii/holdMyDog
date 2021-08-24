@@ -2,7 +2,7 @@
 
 class Pet < ApplicationRecord
   has_and_belongs_to_many :orders
-
+  has_one_attached :photo
   belongs_to :owner
 
   validates :kind, presence: true

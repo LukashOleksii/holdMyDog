@@ -36,7 +36,9 @@
         </div>
 
         <div>
-        <button type="button" class="btn btn-outline-success pet mt-4">Upload photo of your pet</button>
+        <%= f.label "Upload photo of your pet" %>
+       <%= f.file_field :photo, class: "mt-4" %>
+        <%# <button type="button" class="btn btn-outline-success pet mt-4">Upload photo of your pet</button> %>
         </div>
         <div class="d-flex">
           <%= button_to "Skip this step", location_path, method: :get, class: "btn btn-secondary custom-1 mt-4" %>
