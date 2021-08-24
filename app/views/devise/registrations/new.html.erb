@@ -1,4 +1,12 @@
-
+<nav class="navbar-custom navbar navbar-expand-sm py-0 align-text-bottom align-bottom">
+  <!-- <div class="container-fluid"> -->
+    <a href="#" class="logo-box float-start">
+      <a class="navbar-brand mb-2 my-2 h1 navbar-logo-text float-left aalign-text-bottom align-bottom" href="#">
+      <%= image_tag 'logo.png', class:"d-inline-block align-bottom align-text-bottom mx-2 float-left navbar-logo-img" %>
+      HoldMyDog</a>
+    </a>
+  <!-- </div> -->
+</nav>
 <div class="background-img ">
   <div class="row h-100">
     <div class="col-6"></div>
@@ -7,11 +15,11 @@
         <h2 class="form-header">Sign up now!</h2>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
-
           <%= f.fields_for :profile do |pf| %>
             <div class="field">
               <%= pf.text_field :first_name, placeholder: 'First name *', class: 'form-field mb-3' %>
             </div>
+
 
             <div class="field">
               <%= pf.text_field :last_name, placeholder: 'Last name *', class: 'form-field mb-3' %>
@@ -59,4 +67,5 @@
       </div>
     </div>
   </div>
+<%= render "devise/shared/links" %>
 </div>

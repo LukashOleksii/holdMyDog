@@ -1,0 +1,60 @@
+
+<div class="background-img ">
+  <div class="row h-100">
+    <div class="col-6">
+
+    </div>
+    <div class="col-6 align-items-start form-block d-flex">
+      <div class="form-block">
+
+          <h2 class="form-header">Tell us about your Pet Service offerings</h2>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="field">
+          <%= f.label :email, "What is your time availability for setting?", class:"form-lable" %>
+          <br>
+          <%= f.email_field :email, autofocus: true, placeholder: 'Start date*', class:"form-field mb-3" %>
+          </div>
+
+          <div class="field">
+          <%= f.email_field :email, autofocus: true, placeholder: 'End date*', class:"form-field mb-3" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :email, "What is the cost of your service?", class:"form-lable" %>
+          <br>
+          <%= f.email_field :email, autofocus: true, placeholder: 'Price*', class:"form-field mb-3" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :email, "What is your pets capacity?", class:"form-lable" %>
+          <br>
+          <%= f.email_field :email, autofocus: true, placeholder: '1', class:"form-field mb-3" %>
+          </div>
+
+           <div class="field">
+            <%= f.label :email, "Which kind of pets you can take for sitting?", class:"form-lable" %>
+            <br>
+
+            <%= check_box_tag "Small(0 - 10kg)", id:"monday" %> Small(0 - 10kg)
+            <br>
+            <%= check_box_tag "Medium(11 - 20kg)", 'yes', id:"monday" %> Medium(11 - 20kg)
+            <br>
+            <%= check_box_tag "Large(21 - 40kg)", id:"monday" %> Large(21 - 40kg)
+            <br>
+            <%= check_box_tag "Giant(41kg+)", id:"monday" %> Giant(41kg+)
+          </div>
+
+
+          <div class="actions">
+          <%= f.submit "Next step", class: "btn btn-light next-step-btn mt-4" %>
+          </div>
+
+          <% end %>
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
