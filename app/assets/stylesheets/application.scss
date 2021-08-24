@@ -20,6 +20,7 @@ $primary_background_color: #20C997;
   width: 100%;
   box-shadow: 0 0 10px gray;
 
+
   .navbar-logo-text{
     height: 40px;
     font-weight: bold;
@@ -29,6 +30,9 @@ $primary_background_color: #20C997;
     margin-top: 5px;
     text-decoration: none;
   }
+  background: #20C997;
+ // add navbar and background image
+  box-shadow: 0px 3px 9px 0px rgba(0,0,0,.5);
 
   .navbar-brand {
     color: white;

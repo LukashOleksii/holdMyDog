@@ -25,6 +25,8 @@ class AddressesController < ApplicationController
     end
   end
 
+  def service_offering; end
+
   private
 
   def address_params
