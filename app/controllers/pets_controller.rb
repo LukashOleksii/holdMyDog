@@ -20,7 +20,7 @@ class PetsController < ApplicationController
       redirect_to(new_location_path,
                   flash: { notice: 'Pet successfully added!' })
     else
-      redirect_to(pets_path(@pet),
+      redirect_to(pet_path(@pet),
                   flash: { error: @pet.errors.full_messages.to_sentence })
     end
   end
@@ -30,6 +30,6 @@ class PetsController < ApplicationController
   def pet_params
     params
       .require(:pet)
-      .permit(%i[kind name gender years weight height description owner_id])
+      .permit(%i[kind name gender years weight height description owner_id photo])
   end
 end
