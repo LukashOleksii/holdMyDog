@@ -8,10 +8,9 @@ Rails.application.routes.draw do
 
   get  '/add_location', to: 'addresses#new',    as: :new_location
   post '/add_location', to: 'addresses#create', as: :location
-  get  '/service_offering', to: 'addresses#service_offering', as: :service_offering
+
+  get  '/service_offering', to: 'availiabilities#service_offering', as: :service_offering
 
   get '/sitters/:id', to: 'sitter_profiles#show', as: :sitter
   get '/owners/:id',  to: 'owner_profiles#show',  as: :owner
-
-
 end
