@@ -28,5 +28,19 @@ module Users
         { profile_attributes: %i[first_name last_name phone description] }
       ]
     end
+
+    protected
+
+    def after_sign_up_path_for(resource)
+      location_path
+    end
+
+    def after_sign_in_path_for(resource)
+      if current_user.type == Owner.name
+        owner_path(current_user)
+      else
+        sitter_path(current_user)
+      end
+    end
   end
 end

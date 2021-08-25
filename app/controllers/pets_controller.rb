@@ -17,7 +17,7 @@ class PetsController < ApplicationController
     @pet = Pet.new(pet_params)
 
     if @pet.save
-      redirect_to(new_location_path,
+      redirect_to(owner_path(current_user),
                   flash: { notice: 'Pet successfully added!' })
     else
       redirect_to(pet_path(@pet),

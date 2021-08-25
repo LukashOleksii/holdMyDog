@@ -18,10 +18,10 @@ class AddressesController < ApplicationController
 
     if @address.save
       if current_user.type == Owner.name
-        redirect_to(owner_path(current_user),
+        redirect_to(pet_path(current_user),
                     flash: { notice: 'Address successfully added!' })
       else
-        redirect_to(sitter_path(current_user),
+        redirect_to(service_offering_path(current_user),
                     flash: { notice: 'Address successfully added!' })
       end
     else
@@ -29,8 +29,6 @@ class AddressesController < ApplicationController
                   flash: { error: @address.errors.full_messages.to_sentence })
     end
   end
-
-  def service_offering; end
 
   private
 
