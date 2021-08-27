@@ -14,8 +14,28 @@ class SitterProfilePresenter
     viewer.id == sitter.id
   end
 
+  def profile
+    sitter.profile
+  end
+
   def full_name
     sitter.profile.full_name
+  end
+
+  def description 
+    sitter.profile.description
+  end
+
+  def availabilities
+    availability = sitter.availabilities
+  end
+
+  def phone
+    sitter.profile.phone
+  end
+
+  def photo
+    sitter.profile.photo
   end
 
   def price

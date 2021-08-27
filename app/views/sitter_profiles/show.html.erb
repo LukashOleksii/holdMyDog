@@ -1,5 +1,6 @@
 <% if @presenter.can_edit? %>
   <%= render partial: 'sitter_profiles/add_availability' %>
+  <%= render partial: 'sitter_profiles/edit_profile',  locals: { profile: @presenter.profile } %> 
 <% end %>
 
 <main class=" container d-flex justify-content-start mt-5 h-100">
@@ -9,42 +10,12 @@
     "> <!-- set user.image-->
     
     </div>
-    <div class="location mt-5">
+    <div class="location mt-4">
       <h5 class="location-title primary-color title ">Location</h5>
       <div class="location-map" style="
     background-image: url(https://i0.wp.com/cssscript.com/wp-content/uploads/2018/03/Simple-Location-Picker.png?fit=561%2C421&ssl=1); 
     "> <!-- set map here-->
       </div>
-    </div>
-    <div class="pet-sizes mt-3">
-      <h5 class="primary-color title">Pet sizes </h5>
-      <form>
-        <div class=" primary-color fw-bold">
-          <% if @presenter.can_edit? %> <!-- current_user is owner-->
-            <div class="check-pets">
-              <div class="checkbox-pet" style=" background-color: white;"> </div>
-              <p class="mb-0 ms-2 mt-2">  Small (0 - 10kg)</p>
-            </div>  <!-- set User.pets[small] instead of 'checked' -->
-            <div class="check-pets">
-              <div class="checkbox-pet"> </div>
-              <p class="mb-0 ms-2 mt-2">  Medium (11 - 20kg)</p>
-            </div>  <!-- set User.pets[small] instead of 'checked' -->
-            <div class="check-pets">
-              <div class="checkbox-pet"> </div>
-              <p class="mb-0 ms-2 mt-2">  Large (21 - 40kg)</p>
-            </div>  <!-- set User.pets[small] instead of 'checked' -->
-            <div class="check-pets">
-              <div class="checkbox-pet"> </div>
-              <p class="mb-0 ms-2 mt-2">  Giant (41kg+)</p>
-            </div>  <!-- set User.pets[small] instead of 'checked' -->
-          <% else %>
-            <input type="checkbox" class="mt-2" checked > Small (0 - 10kg) <br> <!-- set User.pets[small] instead of 'checked' -->
-            <input type="checkbox" class="mt-2" checked > Medium (11 - 20kg) <br>
-            <input type="checkbox" class="mt-2" > Large (21 - 40kg) <br>
-            <input type="checkbox" class="mt-2" > Giant (41kg+) <br>
-          <% end %>
-        </div>
-      </form>
     </div>
   </section>
   <section class="main-info w-75 d-flex flex-column">
@@ -60,7 +31,7 @@
           <% end %>
             
           <% if @presenter.can_edit? %>
-            <button class=" custom btn ps-4 pe-4" >Edit</button>
+            <button class=" custom btn pet ps-4 pe-4 " onclick="getElementById('edit_profile').style.visibility='visible'" >Edit</button>
           <% end %>
 
           </div>
@@ -73,76 +44,123 @@
             <% 3.times do %>
                 <span class="gold glyphicon glyphicon-star-empty"></span>
             <% end %>
+            <% if @presenter.can_edit? %>
+              <p>tel.<%= @presenter.phone  %> </p>
+             <% end %>
           </div>
           <p class="review-number fs-4 ms-3 mt-3 fw-bold">176 reviews</p>
         </div>
         <div class="info w-75 mt-3">
-          <h6 class="fw-bold fs-4">About john:</h6> <!-- set User.name-->
-          <p class="description ">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
-            possimus magni incidunt sunt non ipsa inventore temporibus magnam, pariatur quas nulla aliquam aut!
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
-            possimus magni incidunt sunt non ipsa inventore temporibus magnam, pariatur quas nulla aliquam aut!
-          </p>
+          <h6 class="fw-bold fs-4">About:</h6> <!-- set User.name-->
+          <p class="description "> <%= @presenter.description %> </p>
         </div>
       </div>
     </div>
-    <div class="mt-5">
-      <h5 class= "primary-color title">Availability</h5>
-      <div id="availability" class="availability  primary-color fw-bold" style="overflow: auto;">
-      <% if @presenter.can_choose? %> <!-- current_user owner-->
-          <% 11.times do  %>
-            <input type="checkbox" name="timeslot" > 20/08/2021 - 24/08/2021<br>
-          <% end %>
-        <% else %>
-          <% 11.times do  %>
-            <a name="timeslot" > 20/08/2021 - 24/08/2021 <span class="btn glyphicon glyphicon-trash "></span></a>
-          <% end %>
-      </div>
-        <button class=" add-more primary-color mt-4 fs-4 " onclick="getElementById('add_aviability').style.visibility='visible'" >+ Add more...</button> 
+    <div class="reviews  mt-2 mb-3" >
+      <p class="primary-color title">Availabilities</p>
+      <div class="reviews-scroll">
+      <% @presenter.availabilities.each do |item| %>
+        <div class="reviews-container br-1 mb-2 d-flex p-3 h-auto ">
+          <div class="review d-flex mt-3 w-100">
+            <div class="review-info w-100 ">
+              <div class="review-header ">
+                <div class="review-title d-flex justify-content-between  primary-color">
+                  <h4 class="fw-bold fs-2"><%= item.start_at.strftime("%d/%m/%Y") %> - <%= item.end_at.strftime("%d/%m/%Y") %> </h4>
+                  <div class="d-flex" >
+                    <h4 class="fw-bold primary-color title"> <%= item.cost %>$</h4>
+                    <% if @presenter.can_edit? %>
+                      <%= button_to "X" , delete_service_offering_path(item) , method: :delete, class: "btn btn-secondary ms-4 pb-4 mb-2" ,style: "height:16px; margin-top: 2px" %>
+                    <% end %>
+                    <% if @presenter.can_choose? %> <!-- current_user is owner-->
+                      <button class="custom btn" style="margin-top:-6px" >Choose</button>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="review-main">
+                  <h6 class="fw-bold fs-2 mt-3 mb-2">Pet sizes:</h6>
+                  <div class="d-flex">
+                    <div class="check-pets">
+                      <% if item.small_type%>
+                      <div class="checkbox-pet"> </div>
+                      <% else %>
+                      <div class="checkbox-pet" style=" background-color: white "> </div>
+                      <% end %>
+                      <p class="mb-0 ms-2 me-3 mt-2">  Small (0 - 10kg)</p>
+                    </div>  
+                  <div class="check-pets">
+                    <% if item.medium_type%>
+                      <div class="checkbox-pet"> </div>
+                    <% else %>
+                      <div class="checkbox-pet" style=" background-color: white "> </div>
+                    <% end %>
+                    <p class="mb-0 ms-2 me-3 mt-2">  Medium (11 - 20kg)</p>
+                    </div>
+                  <div class="check-pets">
+                    <% if item.large_type%>
+                      <div class="checkbox-pet"> </div>
+                    <% else %>
+                      <div class="checkbox-pet" style=" background-color: white "> </div>
+                    <% end %>
+                    <p class="mb-0 ms-2 me-3 mt-2">  Large (21 - 40kg)</p>
+                  </div>
+                  <div class="check-pets">
+                    <% if item.giant_type%>
+                      <div class="checkbox-pet"> </div>
+                    <% else %>
+                      <div class="checkbox-pet" style=" background-color: white "> </div>
+                    <% end %>
+                    <p class="mb-0 ms-2 me-3 mt-2">  Giant (41kg+)</p>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
     </div>
-    <div class="reviews  mt-2 mb-3" >
+    <% if @presenter.can_edit? %>
+      <button class=" add-more-pets start-100 primary-color mt-3 fs-3 " onclick="getElementById('add_aviability').style.visibility='visible'" >+ Add more...</button> 
+    <% end %>
+    <div class="reviews w-100 mt-2 mb-3" >
       <p class="primary-color title">Reviews</p>
       <div class="reviews-scroll">
         <% 3.times do  %>
-            <div class="reviews-container br-1 mb-2 d-flex p-3 h-auto ">
-                <div class="review d-flex mt-3">
-                <div class="comment user-avatar" style="
+          <div class="reviews-container br-1 mb-2 d-flex p-3 h-auto ">
+            <div class="review d-flex mt-3">
+              <div class="comment user-avatar" style="
             background-image: url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*); 
             "> <!-- set user.image-->
-                </div>
-                <div class="review-info w-75 ">
-                    <div class="review-header ">
-                    <div class="review-title d-flex justify-content-between primary-color">
-                        <h4 class="fw-bold fs-3">John Doe</h4>
-                    </div>
-                    <div class="stars fs-3 d-flex">
+              </div>
+              <div class="review-info w-75 ">
+                <div class="review-header ">
+                  <div class="review-title d-flex justify-content-between primary-color">
+                    <h4 class="fw-bold fs-3">John Doe</h4>
+                  </div>
+                  <div class="stars fs-3 d-flex">
                     <div>
-                        <% 2.times do  %>
-                            <span class="gold glyphicon glyphicon-star"></span>
-                        <% end %>
-                        <% 3.times do %>
-                            <span class="gold glyphicon glyphicon-star-empty"></span>
-                        <% end %>
-                        </div>
-                        <p class="date ms-3 mt-1 fs-4 fw-bold">20/08/2021</p>
+                      <% 2.times do  %>
+                        <span class="gold glyphicon glyphicon-star"></span>
+                      <% end %>
+                      <% 3.times do %>
+                        <span class="gold glyphicon glyphicon-star-empty"></span>
+                      <% end %>
                     </div>
-                    </div>
-                    <div class="review-main">
-                    <h6 class="fw-bold fs-4">Review:</h6>
-                    <p class="description">
+                      <p class="date ms-3 mt-1 fs-4 fw-bold">20/08/2021</p>
+                  </div>
+                </div>
+              <div class="review-main">
+                <h6 class="fw-bold fs-4">Review:</h6>
+                <p class="description">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
                         possimus magni incidunt sunt non ipsadolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
                         possimus magni incidunt sunt non
-                    </p>
-                    </div>
-                </div>
-                </div>
+                </p>
+              </div>
             </div>
-        <% end %>
-      </div>
-      <!-- <h6 class="show-more cursor-pointer primary-color fs-4 ">Show more...</h6> -->
+          </div>
+        </div>
+      <% end %>
     </div>
   </section>
 </main>

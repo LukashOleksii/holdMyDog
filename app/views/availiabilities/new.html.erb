@@ -1,11 +1,9 @@
 <div class="background-img ">
   <div class="row h-100">
     <div class="col-6">
-
     </div>
     <div class="col-6 align-items-start form-block d-flex">
       <div class="form-block">
-
           <h2 class="form-header">Tell us about your Pet Service offerings</h2>
            <%= form_with(model: @availability, url: service_offering_path) do |f| %>
            <%= f.hidden_field :sitter_id, value: current_user.id %>

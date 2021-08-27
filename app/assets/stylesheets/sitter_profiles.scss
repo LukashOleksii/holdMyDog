@@ -20,8 +20,8 @@
 }
 
 .checkbox-pet {
-    height: 15px;
-    width: 15px;
+    height: 25px;
+    width: 25px;
     background-color: #20C997; // set white color if sitter don`t have this pet
     border: 1px gray solid;
 }
@@ -69,6 +69,7 @@
   .description {
     font-size: 12px;
     width: auto;
+    word-break: break-all;
   }
   .availability {
       width: 220px;
@@ -93,7 +94,7 @@
   }
 
   .reviews-scroll {
-    max-height: 800px;
+    max-height: 535px;
     overflow: auto;
   }
   

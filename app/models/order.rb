@@ -2,7 +2,7 @@
 
 class Order < ApplicationRecord
   has_many :comments
-  has_and_belongs_to_many :pets
+  has_and_belongs_to_many :pets, dependent: :destroy
 
   belongs_to :timeslot
   belongs_to :owner
