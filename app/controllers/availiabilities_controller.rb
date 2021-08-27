@@ -20,16 +20,29 @@ class AvailiabilitiesController < ApplicationController
       redirect_to(sitter_path(current_user),
                   flash: { notice: "availability successfully added!" })
     else
-      redirect_to(new_service_offering_path(@availability),
-                  flash: { error: @availability.errors.full_messages.to_sentence })
+      redirect_back(fallback_location: sitter_path(current_user))
     end
+  end
+
+  def destroy
+    @availability = Availability.find(params[:id])
+    @availability.destroy
+
+    redirect_to(sitter_path(current_user),
+                flash: { notice: 'Availability was deleted!' })
   end
 
   private
 
   def availability_params
-    params
+    if params[:availability].present?
+      params
       .require(:availability)
       .permit(%i[status start_at end_at cost capacity small_type medium_type large_type giant_type sitter_id])
+    else
+      params
+      .permit(%i[status start_at end_at cost capacity small_type medium_type large_type giant_type sitter_id])
+    end
+    
   end
 end

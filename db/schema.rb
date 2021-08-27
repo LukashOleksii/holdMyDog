@@ -100,11 +100,11 @@ ActiveRecord::Schema.define(version: 2021_08_27_094943) do
     t.index ["timeslot_id"], name: "index_orders_on_timeslot_id"
   end
 
-  create_table "orders_and_pets", id: false, force: :cascade do |t|
+  create_table "orders_pets", id: false, force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "pet_id"
-    t.index ["order_id"], name: "index_orders_and_pets_on_order_id"
-    t.index ["pet_id"], name: "index_orders_and_pets_on_pet_id"
+    t.index ["order_id"], name: "index_orders_pets_on_order_id"
+    t.index ["pet_id"], name: "index_orders_pets_on_pet_id"
   end
 
   create_table "pets", force: :cascade do |t|

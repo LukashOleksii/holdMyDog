@@ -1,43 +1,51 @@
 <div id="add_pets" class="hidden position-fixed start-50 w-50 h-100 top-0 form-block d-flex " style="z-index:1;">
   <div class="form-block ">
-    <h2 class="form-header mb-5">Tell us about your pet!</h2>
-    <div class="name-gender ">
-      <input class="form-control mt-2 fs-4" type="text" placeholder="Name">
-      <select class="form-select mt-4 fs-4">
-        <option selected>Choose gender</option>
-        <option value="1">Male</option>
-        <option value="1">Female</option>
-      </select>
-    </div>
-    <div class="size-years mt-4">
-      <div class="d-flex mb-3">
-        <p class="text pt-2 w-100"> What is his weight?</p>
-        <input class="form-control fs-4" type="text" placeholder="0">
-      </div>
-      <div class="d-flex mb-3">
-        <p class="text pt-2 w-100"> What is his height?</p>
-        <input class="form-control fs-4" type="text" placeholder="0">
-      </div>
-      <div class="d-flex mb-3">
-        <p class="text pt-2 w-100"> How old is your pet?</p>
-        <input class="form-control fs-4" type="text" placeholder="0">
-      </div>
-    </div>
-   <div class="description mt-4">
-      <p class="text pt-2"> What else you wish to tell about your pet?</p>
-      <div class="form-group">
-          <textarea class="w-100 ps-4 pt-4 fs-4" id="exampleFormControlTextarea1" rows="4"  placeholder="Additional information"></textarea>
-      </div>
-    </div>
-    <div>
-      <button type="button" class="btn btn-outline-success pet mt-4">Upload photo of your pet</button>
-    </div>
-    <button type="button" class="btn btn-secondary custom-1 mt-4" onclick="getElementById('add_pets').style.visibility='hidden'">Cancel</button>
-    <button type="button" class="btn btn-outline-success pet mt-4">Add</button>
-    <div class="mt-5 pt-5">
-      <p class="fw-bold"> Required fields marked with *</p>
-      <p class="">P.S. Don’t be scary to place your real name we protect your <br>
+     <%= form_with(model: @pet, url: pet_path) do |f| %>
+        <%= f.hidden_field :owner_id, value: current_user.id %>
+        <%= f.hidden_field :kind, value: "dog" %>
+          <h2 class="form-header mb-5">Tell us about your pet!</h2>
+
+          <div class="name-gender ">
+           <%= f.text_field :name, placeholder: "Name *", class: "form-control mt-2" %>
+            <%= f.select :gender, ["Male", "Female"], {}, prompt: "Select One", class: "form-select mt-4" %>
+          </div>
+
+          <div class="size-years mt-4">
+            <div class="d-flex mb-3">
+              <p class="text pt-2 w-100"> What is his weight?</p>
+              <%= f.text_field :weight, placeholder: "0", class: "form-control" %>
+            </div>
+            <div class="d-flex mb-3">
+              <p class="text pt-2 w-100"> What is his height?</p>
+              <%= f.text_field :height, placeholder: "0", class: "form-control" %>
+            </div>
+            <div class="d-flex mb-3">
+              <p class="text pt-2 w-100"> How old is your pet?</p>
+              <%= f.text_field :years, placeholder: "0", class: "form-control" %>
+            </div>
+        </div>
+
+         <div class="description mt-4">
+          <p class="text pt-2"> What else you wish to tell about your pet?</p>
+          <div class="form-group">
+          <%= f.text_area :description, rows: 5, placeholder: "Tell us about your pet ;)", class: "w-100" %>
+          </div>
+        </div>
+
+        <div>
+        <%= f.label "Upload photo of your pet" %>
+       <%= f.file_field :photo, class: "mt-4 btn btn-outline-success pet" %>
+        <% # <button type="button" class="btn btn-outline-success pet mt-4">Upload photo of your pet</button> %>
+        </div>
+        <div class="d-flex">
+          <button type="button" class="btn btn-secondary custom-1 mt-4" onclick="getElementById('add_pets').style.visibility='hidden'">Cancel</button>
+          <%= f.submit "Add", class: "btn btn-outline-success pet mt-4 ms-4" %>
+       </div>
+        <% end %>
+        <div class="notice-pet">
+        <p class="fw-bold"> Required fields marked with *</p>
+        <p class="">P.S. Don’t be scary to place your real name we protect your <br>
           privacy and aligned with GDPR conventions</p>
-    </div>
+        </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
-<% if current_user.type == 'owner' %> <!-- set check if owner-->
- <%= render partial: 'owner_profiles/add_pet' %>
- <%= render partial: 'owner_profiles/edit_pet' %>
+<% if @presenter.can_edit? %> <!-- set check if owner-->
+ <%= render partial: 'owner_profiles/add_pet' %> 
+ <%= render partial: 'owner_profiles/edit_profile',  locals: { profile: @presenter.profile } %> 
+
 <% end %>
 
 <main class=" container d-flex justify-content-start mt-5 h-100">
@@ -10,7 +11,7 @@
     "> <!-- set user.image-->
     
     </div>
-    <div class="location mt-5">
+    <div class="location mt-4">
       <h5 class="location-title primary-color title ">Location</h5>
       <div class="location-map" style="
     background-image: url(https://i0.wp.com/cssscript.com/wp-content/uploads/2018/03/Simple-Location-Picker.png?fit=561%2C421&ssl=1); 
@@ -22,10 +23,12 @@
     <div class="user-info">
       <div class="user-info-header">
         <div class=" d-flex justify-content-between primary-color title">
-          <p><%= current_user.profile.first_name  %> <%= current_user.profile.last_name  %> </p>
+          <p><%= @presenter.full_name  %> </p>
+          
+
           <div class="d-flex ">
-          <% if current_user.type == 'owner' && current_user.id == current_user.profile.user_id %> <!-- current_user is owner-->
-            <button class=" custom btn ps-4 pe-4" >Edit</button>
+          <% if @presenter.can_edit? %> <!-- current_user is owner-->
+            <button class=" custom btn pet ps-4 pe-4 " onclick="getElementById('edit_profile').style.visibility='visible'" >Edit</button>
           <% end %>
           </div>
         </div>
@@ -37,36 +40,28 @@
             <% 3.times do %>
                 <span class="gold glyphicon glyphicon-star-empty"></span>
             <% end %>
+            <% if @presenter.can_edit? %>
+              <p>tel.<%= @presenter.phone  %> </p>
+            <% end %>
           </div>
           <div class="d-flex"> 
-            <p class="review-number fs-4 ms-3 mt-3 fw-bold">16 booking </p>  <!-- set current_user.num_bookings -->
-            <p class="review-number fs-4 ms-3 mt-3 fw-bold"> 3 </p> <!-- set current_user.num_dogs -->
-            <!--  if num dog == 1 
-                    <p class="review-number fs-4 ms-3 mt-3 fw-bold"> dog </p>
-                  else 
-                    <p class="review-number fs-4 ms-3 mt-3 fw-bold"> dogs </p>
-                  end
-                  -->
-            <p class="review-number fs-4 ms-3 mt-3 fw-bold"> dogs </p>
+            <p class="review-number fs-4 ms-3 mt-3 fw-bold"> 16 booking </p>  <!-- set current_user.num_bookings -->
+            <p class="review-number fs-4 ms-3 mt-3 fw-bold"> <%= @presenter.pets_count %> </p> <!-- set current_user.num_dogs -->
+
           </div>
         </div>
         <div class="info w-75 mt-3">
-          <h6 class="fw-bold fs-4">About john:</h6> <!-- set User.name-->
-          <p class="description ">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
-            possimus magni incidunt sunt non ipsa inventore temporibus magnam, pariatur quas nulla aliquam aut!
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
-            possimus magni incidunt sunt non ipsa inventore temporibus magnam, pariatur quas nulla aliquam aut!
-          </p>
-        </div>
+          <h6 class="fw-bold fs-4">About:</h6> <!-- set User.name-->
+          <p class="description "> <%= @presenter.description %> 
+          </div>
       </div>
     </div>
-    <div class="reviews  mt-2 mb-3" >
+    <div class="reviews  mt-4 mb-3" >
       <p class="primary-color title">Pets</p>
       <div class="pet-scroll">
-        <% 3.times do  %>
+        <%  @presenter.pets.each do |pet| %>
             <div class="reviews-container br-1 mb-2 d-flex p-3 h-auto ">
-                <div class="review d-flex mt-3">
+                <div class="review d-flex mt-3 w-100">
                 <div class="comment user-avatar" style="
             background-image: url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*); 
             "> <!-- set user.image-->
@@ -75,33 +70,33 @@
                     <div class="review-header ">
                     <div class="review-title d-flex justify-content-between primary-color">
                     
-                        <h4 class="fw-bold fs-1"> John Doe</h4>
+                        <h4 class="fw-bold fs-1"> <%= pet.name %></h4>
                         <div class="d-flex ">
-                          <% if current_user.type == 'owner' %> <!-- current_user is owner-->
-                          <h4 class="fw-bold fs-1 me-5">Small dog</h4>
-                          <div class="edit-pet">
-                            <button class=" custom btn  ps-4 pe-4 " onclick="getElementById('edit_pets').style.visibility='visible'" >Edit</button>
-                            <span class="btn trash glyphicon glyphicon-trash " style="z-index:0;"></span>
+                          <% if @presenter.can_edit? %> <!-- current_user is owner-->
+                          <h4 class="fw-bold fs-1 me-5"><%= @presenter.pets_size(pet.weight) %></h4>
+                          <div class="edit-pet d-flex">
+                            <button class=" custom btn pet ps-4 pe-4 " onclick="getElementById('edit_pet_<%= pet.id.to_s %>').style.visibility='visible'" >Edit</button>
+                            <%= render partial: 'owner_profiles/edit_pet', locals: { pet: pet } %>
+                            <%= button_to "Delete" , delete_pet_path(pet) , method: :delete, class: "btn btn-secondary custom-1 fs-2 ms-2" ,style: "height:38px" %>
+                          
                           </div>
                           <% else %>
-                            <h4 class=" edit-pet fw-bold fs-1 mt-1">Small dog</h4>
+                            <h4 class=" edit-pet fw-bold fs-1 mt-1"><%= @presenter.pets_size(pet.weight) %></h4>
                           <% end %>
                         </div>
                     </div>
                     
                     <div class="d-flex">
-                    <p class="date mt-1 fs-4 fw-bold">Height: 30cm</p>
-                    <p class="date mt-1 fs-4 fw-bold ms-2">Weight: 10kg</p>
-                    <p class="date mt-1 fs-4 fw-bold ms-2">Age: 2y</p>
+                    <p class="date mt-1 fs-4 fw-bold">Height: <%= pet.height %>cm</p>
+                    <p class="date mt-1 fs-4 fw-bold ms-2">Weight: <%= pet.weight %>kg</p>
+                    <p class="date mt-1 fs-4 fw-bold ms-2">Age: <%= pet.years %>y</p>
                        
                     </div>
                     </div>
-                    <div class="review-main">
+                    <div class="info">
                     <h6 class="fw-bold fs-5">About this pet:</h6>
-                    <p class="description">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
-                        possimus magni incidunt sunt non ipsadolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
-                        possimus magni incidunt sunt non
+                    <p class="description w-100" >
+                       <%= pet.description %>
                     </p>
                     </div>
                 </div>
@@ -109,8 +104,8 @@
             </div>
         <% end %>
       </div>
-       <% if true %> <!-- current_user is owner-->
-        <button class=" add-more-pets start-100 primary-color mt-4 fs-3 " onclick="getElementById('add_pets').style.visibility='visible'" >+ Add more...</button> 
+       <% if @presenter.can_edit? %> <!-- current_user is owner-->
+        <button class=" add-more-pets start-100 primary-color mt-3 fs-3 " onclick="getElementById('add_pets').style.visibility='visible'" >+ Add more...</button> 
       <% end %>
     </div>
   </section>
