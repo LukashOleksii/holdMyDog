@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_111302) do
+ActiveRecord::Schema.define(version: 2021_08_27_094943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,11 +60,14 @@ ActiveRecord::Schema.define(version: 2021_08_24_111302) do
     t.datetime "end_at"
     t.string "status"
     t.integer "cost"
-    t.integer "weight"
-    t.integer "height"
     t.bigint "sitter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "capacity"
+    t.boolean "small_type"
+    t.boolean "medium_type"
+    t.boolean "large_type"
+    t.boolean "giant_type"
     t.index ["sitter_id"], name: "index_availabilities_on_sitter_id"
   end
 

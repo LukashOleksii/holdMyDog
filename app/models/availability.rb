@@ -7,8 +7,6 @@ class Availability < ApplicationRecord
 
   validates :start_at, presence: true
   validates :end_at, presence: true
-  validates :status, presence: true
   validates :cost, presence: true, numericality: { only_integer: true }
-  validates :height, presence: true, numericality: { only_integer: true }
-  validates :weight, presence: true, numericality: { only_integer: true }
+  validates :capacity, presence: true, numericality: { only_integer: true }
 end

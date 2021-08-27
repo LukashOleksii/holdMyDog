@@ -1,0 +1,61 @@
+<div class="background-img ">
+  <div class="row h-100">
+    <div class="col-6">
+
+    </div>
+    <div class="col-6 align-items-start form-block d-flex">
+      <div class="form-block">
+
+          <h2 class="form-header">Tell us about your Pet Service offerings</h2>
+           <%= form_with(model: @availability, url: service_offering_path) do |f| %>
+           <%= f.hidden_field :sitter_id, value: current_user.id %>
+           <%= f.hidden_field :status, value: "In progress" %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <p class="form-lable fs-3"> What is your time availability for sitting? </p>
+          <div class="field">
+            <%= f.label :start_at, "Start date*", class: "form-lable" %>
+            <br>
+            <%= f.date_field :start_at, class: "form-field mb-3" %>
+          </div>           
+          <div class="field">
+           <%= f.label :end_at, "End date*", class: "form-lable" %>
+           <br>
+          <%= f.date_field :end_at, class: "form-field mb-3" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :cost, "What is the cost of your service?", class: "form-lable" %>
+          <br>
+          <%= f.text_field :cost, placeholder: "Price*", class: "form-field mb-3" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :capacity, "What is your pets capacity?", class: "form-lable" %>
+          <br>
+          <%= f.text_field :capacity, placeholder: "1", class: "form-field mb-3" %>
+          </div>
+           <div class="field">
+            <%= f.label :email, "Which kind of pets you can take for sitting?", class: "form-lable" %>
+            <br>
+
+            <%= f.check_box :small_type, {}, "true", "false" %> Small(0 - 10kg)
+            <br>
+            <%= f.check_box :medium_type, {}, "true", "false" %> Medium(11 - 20kg)
+            <br>
+            <%= f.check_box :large_type, {}, "true", "false" %> Large(21 - 40kg)
+            <br>
+            <%= f.check_box :giant_type, {}, "true", "false" %> Giant(41kg+)
+          </div>
+
+
+          <div class="actions">
+          <%= f.submit "Next step", class: "btn btn-light next-step-btn mt-4" %>
+          </div>
+
+          <% end %>
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
