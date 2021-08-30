@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_29_132226) do
+ActiveRecord::Schema.define(version: 2021_08_30_112108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,11 +76,9 @@ ActiveRecord::Schema.define(version: 2021_08_29_132226) do
     t.text "body"
     t.bigint "author_id", null: false
     t.bigint "receiver_id", null: false
-    t.bigint "order_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["order_id"], name: "index_comments_on_order_id"
     t.index ["receiver_id"], name: "index_comments_on_receiver_id"
   end
 
@@ -95,6 +93,10 @@ ActiveRecord::Schema.define(version: 2021_08_29_132226) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "capacity"
+    t.boolean "small_type", default: false
+    t.boolean "medium_type", default: false
+    t.boolean "large_type", default: false
+    t.boolean "giant_type", default: false
     t.index ["availability_id"], name: "index_orders_on_availability_id"
     t.index ["owner_id"], name: "index_orders_on_owner_id"
     t.index ["sitter_id"], name: "index_orders_on_sitter_id"
@@ -160,7 +162,6 @@ ActiveRecord::Schema.define(version: 2021_08_29_132226) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "users"
   add_foreign_key "availabilities", "users", column: "sitter_id"
-  add_foreign_key "comments", "orders"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "comments", "users", column: "receiver_id"
   add_foreign_key "orders", "availabilities"

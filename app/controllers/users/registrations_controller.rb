@@ -31,11 +31,11 @@ module Users
 
     protected
 
-    def after_sign_up_path_for(resource)
+    def after_sign_up_path_for(_resource)
       location_path
     end
 
-    def after_sign_in_path_for(resource)
+    def after_sign_in_path_for(_resource)
       if current_user.type == Owner.name
         owner_path(current_user)
       else

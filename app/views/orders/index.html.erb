@@ -1,6 +1,6 @@
 <main class=" container justify-content-start mt-5 h-100">
   <% current_user.orders.each do |order| %>
-    
+    <% unless current_user.kind_of?(Sitter) &&  order.status == "Canceled"%>
     <div class="reviews-container br-1 mb-5 d-flex p-3 h-auto " style="box-shadow: 0 0 3px gray;">
 
       <section class="review d-flex mt-3 col-4">
@@ -12,11 +12,11 @@
           <div class="review-header ">
             <div class="review-title d-flex justify-content-between primary-color">
 
-              <h4 class="fw-bold fs-3"> <%= link_to "#{ @presenter.sitter_profile(order).full_name }", sitter_path(order.sitter_id), class: "primary-color"%>    </h4>
+              <h4 class="fw-bold fs-3"> <%= link_to "#{@presenter.sitter_profile(order).full_name}", sitter_path(order.sitter_id), class: "primary-color" %>    </h4>
                   </div>
                   <div class="stars fs-3 d-flex">
                     <div>
-                      <% 2.times do  %>
+                      <% 2.times do %>
                         <span class="gold glyphicon glyphicon-star"></span>
                       <% end %>
                       <% 3.times do %>
@@ -25,7 +25,7 @@
                     </div>
                   </div>
                 </div>
-                <h6 class="fw-bold fs-4 mt-2">tel: <%= @presenter.sitter_profile(order).phone%> </h6>
+                <h6 class="fw-bold fs-4 mt-2">tel: <%= @presenter.sitter_profile(order).phone %> </h6>
                <div class="review-main d-flex mt-4">
                 <div >
                   <h6 class="fw-bold fs-4">Country:</h6>
@@ -33,9 +33,9 @@
                   <h6 class="fw-bold fs-4">Address:</h6>
                 </div>
                 <div class="ms-4">
-                  <h6 class="fs-4"> <%= @presenter.sitter_address(order).country%> </h6>
-                  <h6 class="fs-4"> <%= @presenter.sitter_address(order).city%>, <%= @presenter.sitter_address(order).zipcode%></h6>
-                  <h6 class="fs-4"> <%= @presenter.sitter_address(order).address_line1%> / <%= @presenter.sitter_address(order).address_line2%> </h6>
+                  <h6 class="fs-4"> <%= @presenter.sitter_address(order).country %> </h6>
+                  <h6 class="fs-4"> <%= @presenter.sitter_address(order).city %>, <%= @presenter.sitter_address(order).zipcode %></h6>
+                  <h6 class="fs-4"> <%= @presenter.sitter_address(order).address_line1 %> / <%= @presenter.sitter_address(order).address_line2 %> </h6>
                 </div>
             </div>
             </div>
@@ -54,28 +54,29 @@
 
                 </div>
                 <div class="ms-4">
-                  <p> <%= @presenter.timeslot(order)%> </p>
+                  <p> <%= @presenter.timeslot(order) %> </p>
                   <p> <%= order.status %> </p>
                   <p> <%= order.cost %>$ </p>
                   <p> <%= order.capacity %>  </p>
-                  <p> <%= order.capacity %>  </p>
+                  <p> <%= @presenter.pet_types(order) %>  </p>
                   <p class="description fs-4"><%= order.description %> </p>
                 </div>
 
 
 
               </div>
-              
+              <% unless order.status == "Active"%>
                 <% if current_user.kind_of?(Owner) %>
                 <div class="d-flex start-50 position-relative" style="margin-left:85px">
-                  <%= button_to "Delete" , delete_order_path(order) , method: :delete, class: "btn btn-danger custom-1 mt-4" %>
+                  <%= button_to "Delete", delete_order_path(order), method: :delete, class: "btn btn-danger custom-1 mt-4" %>
 
                 </div>
                 <% else %>
-                <div class="d-flex start-50 position-relative">
-                  <button type="button" class="btn btn-danger custom-1 mt-4" >Cancel</button>
-                  <button type="button" class="btn btn-outline-success pet mt-4 ms-4" >Comfirm</button>
-                </div>
+                  <div class="d-flex start-50 position-relative">
+                    <%= button_to "Cancel", cancel_order_path(order), method: :put, class: "btn btn-danger custom-1 mt-4" %>
+                    <%= button_to "Confirm", confirm_order_path(order), method: :put, class: "btn btn-outline-success pet mt-4 ms-4" %>
+                  </div>
+                  <% end %>
                 <% end %>
           
           </section>
@@ -87,11 +88,11 @@
         <div class="review-info w-75 ">
           <div class="review-header ">
             <div class="review-title d-flex justify-content-between primary-color">
-              <h4 class="fw-bold fs-3"> <%= link_to "#{ @presenter.owner_profile(order).full_name }", owner_path(order.owner_id), class: "primary-color"%>    </h4>
+              <h4 class="fw-bold fs-3"> <%= link_to "#{@presenter.owner_profile(order).full_name}", owner_path(order.owner_id), class: "primary-color" %>    </h4>
                   </div>
                   <div class="stars fs-3 d-flex">
                     <div>
-                      <% 2.times do  %>
+                      <% 2.times do %>
                         <span class="gold glyphicon glyphicon-star"></span>
                       <% end %>
                       <% 3.times do %>
@@ -109,12 +110,13 @@
                   <h6 class="fw-bold fs-4">Address:</h6>
                 </div>
                 <div class="ms-4">
-                  <h6 class="fs-4"> <%= @presenter.owner_address(order).country%> </h6>
-                  <h6 class="fs-4"> <%= @presenter.owner_address(order).city%>, <%= @presenter.owner_address(order).zipcode%></h6>
-                  <h6 class="fs-4"> <%= @presenter.owner_address(order).address_line1%> / <%= @presenter.owner_address(order).address_line2%> </h6>
+                  <h6 class="fs-4"> <%= @presenter.owner_address(order).country %> </h6>
+                  <h6 class="fs-4"> <%= @presenter.owner_address(order).city %>, <%= @presenter.owner_address(order).zipcode %></h6>
+                  <h6 class="fs-4"> <%= @presenter.owner_address(order).address_line1 %> / <%= @presenter.owner_address(order).address_line2 %> </h6>
                 </div>
             </div>
             </section>
         </div>
+        <% end %>
       <% end %>
 </main>
