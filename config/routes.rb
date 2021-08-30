@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post  '/service_offering', to: 'availiabilities#create', as: :service_offering
   delete "/delete_service_offering/:id", to: "availiabilities#destroy", as: :delete_service_offering
 
+  post '/comment', to: 'comments#create', as: :comment
 
   get "/sitters/:id", to: "sitter_profiles#show", as: :sitter
   put "/sitters/:id/update", to: "sitter_profiles#update", as: :update_sitter
@@ -23,5 +24,13 @@ Rails.application.routes.draw do
   put "/owners/:id/update", to: "owner_profiles#update", as: :update_owner
 
   get'/search', to: 'sitter_profiles#search', as: :search
+  
+  get  "/inbox/:id",    to: "orders#index",     as: :inbox
+  delete "/delete_order/:id", to: "orders#destroy", as: :delete_order
+
+
+  get  "/order", to: "orders#new", as: :new_order
+  post "/order/:id", to: "orders#create", as: :order
+
 
 end

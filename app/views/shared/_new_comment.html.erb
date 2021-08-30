@@ -1,0 +1,11 @@
+<h4 class="fs-4 ">Leave a comment: </h4>
+<%= form_with(model: @comment, url: comment_path(profile)) do |form| %>
+  <%= form.hidden_field :author_id, value: current_user.id %>
+  <%= form.hidden_field :receiver_id, value: profile.user_id %>
+
+  <%= form.text_area :body, class: 'form-control w-100', style:"height:100px"%>
+
+  <div class="d-flex justify-content-end">
+    <%= form.button :comment, type: :submit, class: 'btn custom mt-3' %>
+  </div>
+<% end %>
