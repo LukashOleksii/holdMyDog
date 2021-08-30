@@ -1,6 +1,6 @@
 <% if @presenter.can_edit? %>
   <%= render partial: 'sitter_profiles/add_availability' %>
-  <%= render partial: 'sitter_profiles/edit_profile',  locals: { profile: @presenter.profile } %> 
+  <%= render partial: 'shared/edit_profile',  locals: { profile: @presenter.profile } %> 
 <% end %>
 
 <main class=" container d-flex justify-content-start mt-5 h-100">
@@ -72,7 +72,10 @@
                       <%= button_to "X" , delete_service_offering_path(item) , method: :delete, class: "btn btn-secondary ms-4 pb-4 mb-2" ,style: "height:16px; margin-top: 2px" %>
                     <% end %>
                     <% if @presenter.can_choose? %> <!-- current_user is owner-->
-                      <button class="custom btn" style="margin-top:-6px" >Choose</button>
+                      <button class=" custom btn pet  " onclick="getElementById('availability_<%= item.id.to_s %>').style.visibility='visible'" >Choose</button>
+                      <%= render partial: 'sitter_profiles/create_order', locals: { availability: item }  %>
+
+                      <!-- <button class="custom btn" style="margin-top:-6px" >Choose</button>  -->
                     <% end %>
                   </div>
                 </div>
@@ -124,10 +127,14 @@
     <% end %>
     <div class="reviews w-100 mt-2 mb-3" >
       <p class="primary-color title">Reviews</p>
+      <% if @presenter.can_comment? %>
+        <%= render partial: 'shared/new_comment', locals: {owner_id: :owner_id, profile: @presenter.profile} %>
+      <% end %>
       <div class="reviews-scroll">
-        <% 3.times do  %>
+
+        <% @presenter.comments.each do |comment| %>
           <div class="reviews-container br-1 mb-2 d-flex p-3 h-auto ">
-            <div class="review d-flex mt-3">
+            <div class="review d-flex mt-3 w-100">
               <div class="comment user-avatar" style="
             background-image: url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*); 
             "> <!-- set user.image-->
@@ -135,7 +142,7 @@
               <div class="review-info w-75 ">
                 <div class="review-header ">
                   <div class="review-title d-flex justify-content-between primary-color">
-                    <h4 class="fw-bold fs-3">John Doe</h4>
+                    <h4 class="fw-bold fs-3"><%= comment.author.profile.full_name %></h4>
                   </div>
                   <div class="stars fs-3 d-flex">
                     <div>
@@ -146,16 +153,12 @@
                         <span class="gold glyphicon glyphicon-star-empty"></span>
                       <% end %>
                     </div>
-                      <p class="date ms-3 mt-1 fs-4 fw-bold">20/08/2021</p>
+                      <p class="date ms-3 mt-1 fs-4 fw-bold"><%= comment.created_at.strftime("%d/%m/%Y") %></p>
                   </div>
                 </div>
               <div class="review-main">
                 <h6 class="fw-bold fs-4">Review:</h6>
-                <p class="description">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
-                        possimus magni incidunt sunt non ipsadolor sit amet consectetur adipisicing elit. Vel quia, odio maxime nobis cum repellat dolorem
-                        possimus magni incidunt sunt non
-                </p>
+                <p class="description"> <%= comment.body %> </p>
               </div>
             </div>
           </div>

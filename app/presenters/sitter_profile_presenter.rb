@@ -10,6 +10,11 @@ class SitterProfilePresenter
     viewer.type == Owner.name
   end
 
+  def can_comment?
+    viewer.id != sitter.id &&
+      Order.find_by(owner: viewer, sitter: sitter)
+  end
+
   def can_edit?
     viewer.id == sitter.id
   end
@@ -27,7 +32,7 @@ class SitterProfilePresenter
   end
 
   def availabilities
-    availability = sitter.availabilities
+    sitter.availabilities.order(start_at: :asc)
   end
 
   def phone
@@ -36,6 +41,10 @@ class SitterProfilePresenter
 
   def photo
     sitter.profile.photo
+  end
+
+  def comments
+    sitter.received_comments.order(created_at: :desc)
   end
 
   def price

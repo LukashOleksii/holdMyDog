@@ -11,8 +11,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :profile
-  has_one :address
+  has_one  :profile
+  has_one  :address
+
+  has_many :received_comments, class_name: Comment.name, foreign_key: :receiver_id
+  has_many :authored_comments, class_name: Comment.name, foreign_key: :author_id
 
   validates :email,
             presence:   true,

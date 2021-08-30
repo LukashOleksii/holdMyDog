@@ -6,19 +6,27 @@ class CommentsController < ActionController::Base
   end
 
   def show
-    @comment = comment.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def new
-    @comment = comment.new
+    @comment = Comment.new
   end
 
   def create
-    @comment = comment.new(comment_params)
+    author  = User.find(params[:author_id])
+    receiver  = User.find(params[:receiver_id])
+    order = author.kind_of?(Owner) ? find_order(author, receiver) : find_order(receiver, author)
+    @comment = Comment.new(comment_params.merge(order: order))
 
     if @comment.save
-      redirect_to(owner_path(current_user),
-                  flash: { notice: "comment successfully added!" })
+      if author.kind_of?(Owner)
+        redirect_to(sitter_path(receiver),
+                    flash: { notice: "comment successfully added!" })
+      else
+        redirect_to(owner_path(receiver),
+                    flash: { notice: "comment successfully added!" })
+      end
     else
       redirect_to(comment_path(@comment),
                   flash: { error: @comment.errors.full_messages.to_sentence })
@@ -27,9 +35,12 @@ class CommentsController < ActionController::Base
 
   private
 
-  def pet_params
+  def comment_params
     params
-      .require(:pet)
-      .permit(%i[kind name gender years weight height description owner_id photo])
+      .permit(%i[body rating author_id receiver_id])
+  end
+
+  def find_order(owner, sitter)
+    Order.find_by(owner: owner, sitter: sitter)
   end
 end

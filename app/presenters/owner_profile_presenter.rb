@@ -10,6 +10,11 @@ class OwnerProfilePresenter
       viewer.id == owner.id
     end
 
+    def can_comment?
+      viewer.id != owner.id &&
+        Order.find_by(owner: owner, sitter: viewer)
+    end
+
     def profile
       owner.profile
     end
@@ -27,13 +32,17 @@ class OwnerProfilePresenter
     end
 
     def pets
-      pet = owner.pets
+      owner.pets
     end
 
     def pets_count
       pet = owner.pets
 
       pet.count > 1 ? "#{pet.count} dogs" : "#{pet.count} dog"
+    end
+
+    def comments
+      owner.received_comments.order(created_at: :desc)
     end
 
     def pets_size(weight)
@@ -51,5 +60,5 @@ class OwnerProfilePresenter
     private
   
     attr_reader :viewer, :owner
-  end
+end
   
