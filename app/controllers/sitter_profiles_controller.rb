@@ -13,6 +13,8 @@ class SitterProfilesController < ApplicationController
                   flash: { notice: 'Profile was updated!' })
   end
 
+  def search; end
+
   protected
 
   def edit_params
