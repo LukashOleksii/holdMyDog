@@ -9,8 +9,8 @@ class OwnerProfilesController < ApplicationController
   def update
     @owner = Owner.find(params[:id])
     @owner.profile.update(edit_params)
-      redirect_to(owner_path(current_user),
-                  flash: { notice: 'Profile was updated!' })
+    redirect_to(owner_path(current_user),
+                flash: { notice: 'Profile was updated!' })
   end
 
   protected

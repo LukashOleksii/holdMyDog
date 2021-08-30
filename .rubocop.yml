@@ -24,6 +24,9 @@ Metrics/ClassLength:
 # Avoid writing of large modules
 Metrics/ModuleLength:
   Max: 100
+  
+Metrics/MethodLength:
+  Max: 15
 
 # Avoid excessive block nesting
 Metrics/BlockNesting:
@@ -309,3 +312,4 @@ Style/RegexpLiteral:
 # Wrap complex conditions in ternary expressions with parentheses
 Style/TernaryParentheses:
   EnforcedStyle: require_parentheses_when_complex
+

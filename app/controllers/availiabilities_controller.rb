@@ -18,7 +18,7 @@ class AvailiabilitiesController < ApplicationController
 
     if @availability.save
       redirect_to(sitter_path(current_user),
-                  flash: { notice: "availability successfully added!" })
+                  flash: { notice: 'availability successfully added!' })
     else
       redirect_back(fallback_location: sitter_path(current_user))
     end
@@ -37,12 +37,11 @@ class AvailiabilitiesController < ApplicationController
   def availability_params
     if params[:availability].present?
       params
-      .require(:availability)
-      .permit(%i[status start_at end_at cost capacity small_type medium_type large_type giant_type sitter_id])
+        .require(:availability)
+        .permit(%i[status start_at end_at cost capacity small_type medium_type large_type giant_type sitter_id])
     else
       params
-      .permit(%i[status start_at end_at cost capacity small_type medium_type large_type giant_type sitter_id])
+        .permit(%i[status start_at end_at cost capacity small_type medium_type large_type giant_type sitter_id])
     end
-    
   end
 end

@@ -9,8 +9,8 @@ class SitterProfilesController < ApplicationController
   def update
     @sitter = Sitter.find(params[:id])
     @sitter.profile.update(edit_params)
-      redirect_to(sitter_path(current_user),
-                  flash: { notice: 'Profile was updated!' })
+    redirect_to(sitter_path(current_user),
+                flash: { notice: 'Profile was updated!' })
   end
 
   def search; end

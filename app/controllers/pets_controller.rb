@@ -12,7 +12,7 @@ class PetsController < ApplicationController
   def new
     @pet = Pet.new
   end
-  
+
   def destroy
     @pet = Pet.find(params[:id])
     @pet.destroy
@@ -26,21 +26,20 @@ class PetsController < ApplicationController
 
     if @pet.update(pet_params)
       redirect_to(owner_path(current_user),
-                flash: { notice: 'Pet was updated!' })
+                  flash: { notice: 'Pet was updated!' })
     else
-      redirect_back(fallback_location: owner_path(current_user)) 
+      redirect_back(fallback_location: owner_path(current_user))
     end
   end
 
   def create
-
     @pet = Pet.new(pet_params)
 
     if @pet.save
       redirect_to(owner_path(current_user),
                   flash: { notice: 'Pet successfully added!' })
     else
-      redirect_back(fallback_location: owner_path(current_user)) 
+      redirect_back(fallback_location: owner_path(current_user))
     end
   end
 
@@ -48,12 +47,12 @@ class PetsController < ApplicationController
 
   def pet_params
     if params[:pet].present?
-    params
-      .require(:pet)
-      .permit(%i[kind name gender years weight height description owner_id photo])
+      params
+        .require(:pet)
+        .permit(%i[kind name gender years weight height description owner_id photo])
     else
       params
-      .permit(%i[kind name gender years weight height description owner_id photo])
+        .permit(%i[kind name gender years weight height description owner_id photo])
     end
   end
 end

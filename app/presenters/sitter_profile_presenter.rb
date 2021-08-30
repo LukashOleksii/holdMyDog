@@ -11,8 +11,8 @@ class SitterProfilePresenter
   end
 
   def can_comment?
-    viewer.id != sitter.id &&
-      Order.find_by(owner: viewer, sitter: sitter)
+    order = Order.find_by(owner: viewer, sitter: sitter)
+    viewer.id != sitter.id && order.present? && order.status == 'Done'
   end
 
   def can_edit?
@@ -27,7 +27,7 @@ class SitterProfilePresenter
     sitter.profile.full_name
   end
 
-  def description 
+  def description
     sitter.profile.description
   end
 
