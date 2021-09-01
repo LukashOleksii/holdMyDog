@@ -14,6 +14,6 @@ class Availability < ApplicationRecord
   def dog_type_present?
     return if small_type || medium_type || large_type || giant_type
 
-    errors.add(:base, 'at least one of dog type must be present')
+    errors.add(:base, 'At least one of dog type must be present')
   end
 end

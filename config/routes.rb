@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get '/owners/:id', to: 'owner_profiles#show', as: :owner
   put '/owners/:id/update', to: 'owner_profiles#update', as: :update_owner
 
-  get '/search', to: 'sitter_profiles#search', as: :search
+  get '/search', to: 'searches#index', as: :search
 
   get '/inbox/:id', to: 'orders#index', as: :inbox
   delete '/delete_order/:id', to: 'orders#destroy', as: :delete_order
