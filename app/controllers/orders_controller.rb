@@ -37,17 +37,22 @@ class OrdersController < ApplicationController
       redirect_to(inbox_path(current_user),
                   flash: { notice: 'Order was updated!' })
     else
-      redirect_back(fallback_location: owner_path(current_user))
+      redirect_back(fallback_location: inbox_path(current_user))
     end
   end
 
   def cancel_order
-    @order = Order.find(params[:id])
-    if @order.update(status: 'Canceled')
-      redirect_to(inbox_path(current_user),
-                  flash: { notice: 'Order was updated!' })
+    @order    = Order.find(params[:id])
+    @timeslot = Timeslot.find(@order.timeslot_id)
+    if @timeslot.update(order_status: false)
+      if @order.update(status: 'Canceled')
+        redirect_to(inbox_path(current_user),
+                    flash: { notice: 'Order was updated!' })
+      else
+        redirect_back(fallback_location: inbox_path(current_user))
+      end
     else
-      redirect_back(fallback_location: owner_path(current_user))
+      redirect_back(fallback_location: inbox_path(current_user))
     end
   end
 
@@ -64,7 +69,7 @@ class OrdersController < ApplicationController
   def timeslot_params
     params
       .require(:availability)
-      .permit(%i[availability_id start_at end_at])
+      .permit(%i[availability_id start_at end_at order_status])
   end
 
   def price_params

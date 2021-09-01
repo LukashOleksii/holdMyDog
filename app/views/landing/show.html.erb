@@ -9,6 +9,7 @@
         </div>
         <h2 class="landing-text fw-bold ms-5">HoldMyDog is a leading pet <br> caregiver on the market since 2021.</h2>
       </div>
+      <% unless current_user %>
       <div class="landing-form">
         <h2 class="primary-color fw-bold fs-2 mb-2">Log in now!</h2>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -35,7 +36,8 @@
           </div>
           <%= link_to "Forgot your password?", new_password_path(resource_name), class: "primary-color fs-5 mb-2", style: "position:absolute; margin-top: -65px" %><br />
 
-      </div>
+      <% end %>
+      
     </main>
   </div>
 
@@ -51,7 +53,6 @@
         <div class="ms-5">
           <p class="ms-5 mt-5 landing-text" style="color: black; width: 600px;">While work and other responsibilities can be a struggle to balance, we are here to make sure the “consistent” part of in-home puppy care happens. <br>
               Our local, puppy sitters can assist you in creating a customized feeding, exercise, and potty schedule that makes sense for both you and your dog.  </p>
-          <%= button_to "Sign up ", new_registration_path(resource_name), class: "landing btn fs-4 ms-5" %><br />
         </div>
       </div>
     </main>
@@ -110,7 +111,6 @@
           </div>
           <div class="mt-5 pt-5">
             <h2 class="landing-title primary-color fw-bold mt-5 mb-5 " style="color:white; margin-top: 40px ">Schedule <br> Dog <br> Sitting <br> Now</h2> 
-            <%= button_to "Sign up ", new_registration_path(resource_name), class: "landing btn fs-4 ms-5", style: "background-color:white; color: #20C997;"%><br />
           </div>
         </div>
       </main>

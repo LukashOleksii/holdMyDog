@@ -1,13 +1,13 @@
 <header class="d-flex navbar-custom navbar ">
   <nav class="d-flex  container mt-2 justify-content-between navbar-logo-text">
     <div class="logo-box d-flex  ">
-      <%= image_tag "logo.png", class: " mx-2 pb-2", style: "width:40px; height:40px;" %>
-      <a class="navbar-brand mb-0 h1 navbar-logo-text " href="#">HoldMyDog</a> <!-- set lint to home page ?? -->
-      <% if current_user %> <!-- current_user -->
-       <% if current_user.type == Owner.name %>
+      <%= image_tag 'logo.png', class:" mx-2 pb-2" , style:"width:40px; height:40px;"%>
+      <% if current_user %> 
+        <%= link_to 'HoldMyDog', home_path(), class:"navbar-brand mb-0 h1 navbar-logo-text" %>
+        <% if current_user.type == Owner.name %>
           <a class="d-flex ms-5 navbar-logo-text fs-3" href="#">Search</a> <!-- set lint to search page -->
         <% end %>
-         <% if current_user.type == Sitter.name %>
+        <% if current_user.type == Sitter.name %>
           <% count = current_user.orders.where("status = ? OR status = ?", "Requested", "Active").count %>
         <% else %>
           <% count = current_user.orders.where("status = ? OR status = ?", "Canceled", "Active").count %>
@@ -16,7 +16,6 @@
 
     </div>
     <div class="d-flex">
-    <!-- set lint to ... page ?? -->
     <% if current_user.type == Sitter.name %>
       <%= link_to "MyHome", sitter_path(current_user), class: "d-flex navbar-logo-text fs-3" %>
     <% else %>
@@ -25,10 +24,11 @@
     <%= button_to "Log out", destroy_user_session_path, method: :delete, class: " add-more-pets log-out fs-3" %>
     </div>
     <% else %>
+      <a class= "navbar-brand mb-0 h1 navbar-logo-text"> HoldMyDog </a>
       <div class="d-flex position-relative nav-block">
-          <a class="d-flex navbar-logo-text fs-3 block-item" href="#">About us</a> <!-- set lint to search page -->
-          <a class="d-flex navbar-logo-text fs-3 block-item" href="#">Contact us</a> <!-- set lint to search page -->
-          <a class="d-flex navbar-logo-text fs-3 block-item" href="#">First here?</a> <!-- set lint to search page -->
+          <a class="d-flex navbar-logo-text fs-3 block-item" href="#aboutus">About us</a> <!-- set lint to search page -->
+          <a class="d-flex navbar-logo-text fs-3 block-item" href="#contactus">Contact us</a> <!-- set lint to search page -->
+          <a class="d-flex navbar-logo-text fs-3 block-item" href="#howitwork">First here?</a> <!-- set lint to search page -->
           <%= button_to "Sign up now!", new_user_registration_url, method: :get, class: "btn btn-outline-success pet block-item" %>
         </div>
 

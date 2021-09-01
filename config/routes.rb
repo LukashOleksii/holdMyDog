@@ -32,4 +32,6 @@ Rails.application.routes.draw do
 
   get  '/order', to: 'orders#new', as: :new_order
   post '/order/:id', to: 'orders#create', as: :order
+
+  get '/', to: 'landing#show', as: :home
 end
