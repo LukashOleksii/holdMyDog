@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class SitterProfilesController < ApplicationController
+  def index
+    @sitters = Sitter.all
+  end
+
   def show
     @sitter    = Sitter.find(params[:id])
     @presenter = SitterProfilePresenter.new(@sitter, current_user)
@@ -12,8 +16,6 @@ class SitterProfilesController < ApplicationController
     redirect_to(sitter_path(current_user),
                 flash: { notice: 'Profile was updated!' })
   end
-
-  def search; end
 
   protected
 
