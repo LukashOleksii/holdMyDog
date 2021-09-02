@@ -26,6 +26,10 @@ class OwnerProfilePresenter
     owner.profile.description
   end
 
+  def orders
+    owner.orders
+  end
+
   def phone
     owner.profile.phone
   end

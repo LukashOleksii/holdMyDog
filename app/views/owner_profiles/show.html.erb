@@ -45,7 +45,7 @@
             <% end %>
           </div>
           <div class="d-flex"> 
-            <p class="review-number fs-4 ms-3 mt-3 fw-bold"> 16 booking </p>  <!-- set current_user.num_bookings -->
+            <p class="review-number fs-4 ms-3 mt-3 fw-bold"> <%= @presenter.orders.count  %> booking </p>  <!-- set current_user.num_bookings -->
             <p class="review-number fs-4 ms-3 mt-3 fw-bold"> <%= @presenter.pets_count %> </p> <!-- set current_user.num_dogs -->
 
           </div>

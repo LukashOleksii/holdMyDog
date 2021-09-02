@@ -65,7 +65,7 @@
 
 
               </div>
-              <% unless order.status == "Active"%>
+              <% if order.status == "Requested" || order.status == "Canceled" %>
                 <% if current_user.kind_of?(Owner) %>
                 <div class="d-flex start-50 position-relative" style="margin-left:85px">
                   <%= button_to "Delete", delete_order_path(order), method: :delete, class: "btn btn-danger custom-1 mt-4" %>
