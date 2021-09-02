@@ -48,7 +48,7 @@
               <p>tel.<%= @presenter.phone  %> </p>
              <% end %>
           </div>
-          <p class="review-number fs-4 ms-3 mt-3 fw-bold">176 reviews</p>
+          <p class="review-number fs-4 ms-3 mt-3 fw-bold"><%= @presenter.comments.count %> reviews</p>
         </div>
         <div class="info w-75 mt-3">
           <h6 class="fw-bold fs-4">About:</h6> <!-- set User.name-->
